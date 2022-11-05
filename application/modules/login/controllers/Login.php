@@ -19,8 +19,7 @@ class Login extends Parent_Controller {
 	 
 		$username = $this->input->post('username');
 		$password = base64_encode($this->input->post('password'));
-		  
-			 
+ 
 			$auth = $this->m_login->autentikasi($username,$password);
 			 
 			$session = $this->m_login->autentikasi($username,$password)->row();
