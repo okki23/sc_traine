@@ -25,7 +25,8 @@
                                         <tr>
                                            
                                             <th style="width:5%;">Username</th>  
-                                            <th style="width:5%;">Nama Pegawai</th>  
+                                            <!-- <th style="width:5%;">Nama Pegawai</th>   -->
+                                            <th style="width:5%;">Level</th>  
                                             <th style="width:10%;">Opsi</th> 
                                         </tr>
                                     </thead> 
@@ -44,7 +45,7 @@
    
     <!-- form tambah dan ubah data -->
     <div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title" id="defaultModalLabel">Form Tambah Data</h4>
@@ -58,7 +59,7 @@
                                             <input type="text" name="username" id="username" class="form-control" placeholder="Username" />
                                         </div>
                                     </div>
-                                    <div class="input-group">
+                                    <!-- <div class="input-group">
                                                 <div class="form-line">
                                                     <input type="text" name="nama_pegawai" id="nama_pegawai" class="form-control" readonly="readonly" >
                                                     <input type="hidden" name="id_pegawai" id="id_pegawai" readonly="readonly">
@@ -67,7 +68,7 @@
                                                 <span class="input-group-addon">
                                                     <button type="button" onclick="CariKaryawan();" class="btn btn-primary"> Pilih Pegawai ... </button>
                                                 </span>
-                                    </div>           
+                                    </div>            -->
                                     <div class="form-group">
                                         <div class="form-line">
                                             <span class="label label-danger">* Kosongkan Apabila Tidak Mengganti Password </span>
@@ -79,15 +80,30 @@
                                     
                                         <label> User Type  </label>
                                         <br>
+
+                                        <!-- <select name="level" id="level" class="form-control"> 
+                                            <option value="">--Pilih Level--</option>
+                                            <option value="1"> Administrator</option>
+                                            <option value="2"> Sales</option>
+                                            <option value="3"> Operator</option>
+                                            <option value="4"> CS</option>
+                                            <option value="5"> Pimpinan</option>
+                                        </select> -->
                                         <input type="hidden" name="level" id="level">
 
                                         <button type="button" id="adminbtn" class="btn btn-default waves-effect "> Admin </button>
 
-                                        <button type="button" id="userbtn" class="btn btn-default waves-effect "> User </button>
+                                        <button type="button" id="salesbtn" class="btn btn-default waves-effect "> Sales </button>
+
+                                        <button type="button" id="operatorbtn" class="btn btn-default waves-effect "> Operator </button>
+
+                                        <button type="button" id="csbtn" class="btn btn-default waves-effect "> CS </button>
+
+                                         
                                     
                                     </div>
                                  
-
+                                 
                                    <button type="button" onclick="Simpan_Data();" class="btn btn-success waves-effect"> <i class="material-icons">save</i> Simpan</button>
 
                                    <button type="button" name="cancel" id="cancel" class="btn btn-danger waves-effect" onclick="javascript:Bersihkan_Form();" data-dismiss="modal"> <i class="material-icons">clear</i> Batal</button>
@@ -139,35 +155,65 @@
      $("#adminbtn").on("click",function(){
         $("#level").val('1');
         $(this).attr('class','btn btn-primary');
-        $("#userbtn").attr('class','btn btn-default');
-
+        $("#salesbtn").attr('class','btn btn-default'); 
+        $("#operatorbtn").attr('class','btn btn-default'); 
+        $("#csbtn").attr('class','btn btn-default'); 
+        
     });
 
-    $("#userbtn").on("click",function(){
+    $("#salesbtn").on("click",function(){
         $("#level").val('2');
-       $(this).attr('class','btn btn-primary');
-        $("#adminbtn").attr('class','btn btn-default');
-
-         
+        $(this).attr('class','btn btn-primary');
+        $("#adminbtn").attr('class','btn btn-default'); 
+        $("#operatorbtn").attr('class','btn btn-default'); 
+        $("#csbtn").attr('class','btn btn-default'); 
+        
     });
 
-    function CariKaryawan(){
-        $("#CariKaryawanModal").modal({backdrop: 'static', keyboard: false,show:true});
-    } 
-    $('#daftar_karyawan').DataTable( {
-            "ajax": "<?php echo base_url(); ?>pegawai/fetch_pegawai"           
+    $("#operatorbtn").on("click",function(){
+        $("#level").val('3');
+        $(this).attr('class','btn btn-primary');
+        $("#adminbtn").attr('class','btn btn-default'); 
+        $("#salesbtn").attr('class','btn btn-default');  
+        $("#csbtn").attr('class','btn btn-default'); 
+        
     });
 
-    var daftar_karyawan = $('#daftar_karyawan').DataTable();
+    $("#csbtn").on("click",function(){
+        $("#level").val('4');
+        $(this).attr('class','btn btn-primary');
+        $("#adminbtn").attr('class','btn btn-default'); 
+        $("#salesbtn").attr('class','btn btn-default');  
+        $("#operatorbtn").attr('class','btn btn-default'); 
+        
+    });
+
+    $("#pimpinantbn").on("click",function(){
+        $("#level").val('5');
+        $(this).attr('class','btn btn-primary');
+        $("#adminbtn").attr('class','btn btn-default'); 
+        $("#salesbtn").attr('class','btn btn-default');  
+        $("#operatorbtn").attr('class','btn btn-default'); 
+        $("#csbtn").attr('class','btn btn-default'); 
+    });
+
+    // function CariKaryawan(){
+    //     $("#CariKaryawanModal").modal({backdrop: 'static', keyboard: false,show:true});
+    // } 
+    // $('#daftar_karyawan').DataTable( {
+    //         "ajax": "<?php echo base_url(); ?>pegawai/fetch_pegawai"           
+    // });
+
+    // var daftar_karyawan = $('#daftar_karyawan').DataTable();
      
-     $('#daftar_karyawan tbody').on('click', 'tr', function () {
+    //  $('#daftar_karyawan tbody').on('click', 'tr', function () {
          
-         var content = daftar_karyawan.row(this).data()
-         console.log(content);
-         $("#nama_pegawai").val(content[1]);
-         $("#id_pegawai").val(content[4]);
-         $("#CariKaryawanModal").modal('hide');
-     } );
+    //      var content = daftar_karyawan.row(this).data()
+    //      console.log(content);
+    //      $("#nama_pegawai").val(content[1]);
+    //      $("#id_pegawai").val(content[4]);
+    //      $("#CariKaryawanModal").modal('hide');
+    //  } );
        
      function Ubah_Data(id){
         $("#defaultModalLabel").html("Form Ubah Data");
@@ -182,16 +228,31 @@
                  $("#id").val(result.id);
                  $("#username").val(result.username); 
                  $("#id_pegawai").val(result.id_pegawai);
-                 $("#nama_pegawai").val(result.nama); 
+                //  $("#nama_pegawai").val(result.nama); 
                  $("#level").val(result.level); 
 
-                 if(result.level == '1'){
+                if(result.level == '1'){
                     $("#adminbtn").attr('class','btn btn-primary');
-                    $("#userbtn").attr('class','btn btn-default');
-                 }else{
-                    $("#adminbtn").attr('class','btn btn-default');
-                    $("#userbtn").attr('class','btn btn-primary');
+                    $("#salesbtn").attr('class','btn btn-default'); 
+                    $("#operatorbtn").attr('class','btn btn-default'); 
+                    $("#csbtn").attr('class','btn btn-default'); 
+                }else if(result.level == '2'){
+                    $("#salesbtn").attr('class','btn btn-primary');
+                    $("#adminbtn").attr('class','btn btn-default'); 
+                    $("#operatorbtn").attr('class','btn btn-default'); 
+                    $("#csbtn").attr('class','btn btn-default');  
+                }else if(result.level == '3'){
+                    $("#operatorbtn").attr('class','btn btn-primary');
+                    $("#adminbtn").attr('class','btn btn-default'); 
+                    $("#salesbtn").attr('class','btn btn-default');  
+                    $("#csbtn").attr('class','btn btn-default'); 
+                }else if(result.level == '4'){
+                    $("#csbtn").attr('class','btn btn-primary');
+                    $("#adminbtn").attr('class','btn btn-default'); 
+                    $("#salesbtn").attr('class','btn btn-default');  
+                    $("#operatorbtn").attr('class','btn btn-default');
                  }
+  
              }
          });
      }
@@ -251,7 +312,8 @@
         //setting semua data dalam form dijadikan 1 variabel 
          var formData = new FormData($('#user_form')[0]); 
 
-          
+        console.log(formData);
+
          //validasi form sebelum submit ke controller
          var username = $("#username").val();
         
@@ -268,9 +330,7 @@
             $.ajax({
              url:"<?php echo base_url(); ?>user/simpan_data_user",
              type:"POST",
-             data:formData,
-             contentType:false,  
-             processData:false,   
+             data:formData, 
              success:function(result){ 
                 
                  $("#defaultModal").modal('hide');

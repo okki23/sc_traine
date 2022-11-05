@@ -1,4 +1,4 @@
- 
+f 
     <section class="content">
         <div class="container-fluid">
             <div class="block-header">
@@ -14,18 +14,21 @@
                             </h2>
                             <br>
                             <a href="javascript:void(0);" id="addmodal" class="btn btn-primary waves-effect">  <i class="material-icons">add_circle</i>  Tambah Data </a>
-  
+ 
                         </div>
+
                         <div class="body">
                                 
                             <div class="table-responsive">
 							   <table class="table table-bordered table-striped table-hover js-basic-example" id="example" >
-  
 									<thead>
-										<tr> 
-											<th style="width:5%;">Kategori instansi</th>
-                                            <th style="width:5%;">Nama instansi</th>                                           
-                                            <th style="width:10%;">Opsi</th> 
+										<tr>
+											<th style="width:5%;">Nama Perusahaan</th>
+                                            <th style="width:10%;">Jenis Perusahaan</th>  
+											<th style="width:10%;">Alamat</th>
+                                            <th style="width:10%;">Telp</th> 
+                                            <th style="width:10%;">Sales</th>  
+											<th style="width:10%;">Opsi</th> 
 										</tr>
 									</thead> 
 								</table> 
@@ -43,29 +46,22 @@
    
 	<!-- form tambah dan ubah data -->
 	<div class="modal fade" id="defaultModal" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title" id="defaultModalLabel">Form Tambah Data</h4>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body"> 
                               <form method="post" id="user_form" enctype="multipart/form-data">   
-                                 
-                                    <input type="hidden" name="id" id="id"> 
-                                    <div class="input-group">
-                                                <div class="form-line">
-                                                    <input type="text" name="nama_kategori_instansi" id="nama_kategori_instansi" class="form-control" readonly="readonly" >
-                                                    <input type="hidden" name="id_kategori_instansi" id="id_kategori_instansi" readonly="readonly" >
-                                                    
-                                                </div>
-                                                <span class="input-group-addon">
-                                                    <button type="button" onclick="CariInstansi();" class="btn btn-primary"> Pilih Kategori Instansi... </button>
-                                                </span>
-                                    </div>
- 
-									<div class="form-group">
+                                 <input type="hidden" name="id" id="id"> 
+                                    <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" name="nama_instansi" id="nama_instansi" class="form-control" placeholder="Nama instansi" />
+                                            <input type="text" name="nama_perusahaan" id="nama_perusahaan" class="form-control" placeholder="Nama Perusahaan" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" name="jenis_perusahaan" id="jenis_perusahaan" class="form-control" placeholder="Jenis Perusahaan" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -78,16 +74,22 @@
                                             <input type="text" name="telp" id="telp" class="form-control" placeholder="Telp" />
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" name="pic" id="pic" class="form-control" placeholder="PIC" />
-                                        </div>
-                                    </div>
-                                     
+                                    
+                                    <div class="input-group">
+                                                <div class="form-line">
+                                                    <input type="text" name="nama_sales" id="nama_sales" class="form-control" required readonly="readonly" >
+                                                    <input type="hidden" name="id_sales_marketing" id="id_sales_marketing" required>
+                                                    
+                                                </div>
+                                                <span class="input-group-addon">
+                                                    <button type="button" onclick="PilihSales();" class="btn btn-primary"> Pilih Sales... </button>
+                                                </span>
+                                    </div> 
+								 
 
-								   <button type="button" onclick="Simpan_Data();" class="btn btn-success waves-effect"> <i class="material-icons">save</i> Simpan</button>
+								    <button type="button" onclick="Simpan_Data();" class="btn btn-success waves-effect"> <i class="material-icons">save</i> Simpan</button>
 
-                                   <button type="button" name="cancel" id="cancel" class="btn btn-danger waves-effect" onclick="javascript:Bersihkan_Form();" data-dismiss="modal"> <i class="material-icons">clear</i> Batal</button>
+                                    <button type="button" name="cancel" id="cancel" class="btn btn-danger waves-effect" onclick="javascript:Bersihkan_Form();" data-dismiss="modal"> <i class="material-icons">clear</i> Batal</button>
 							 </form>
 					   </div>
                      
@@ -96,13 +98,12 @@
     </div>
 
 
-
-    <!-- modal cari kategori -->
-    <div class="modal fade" id="CariInstansiModal" tabindex="-1" role="dialog">
+    <!-- modal cari jabatan -->
+    <div class="modal fade" id="PilihSalesModal" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" >Cari Kategori</h4>
+                            <h4 class="modal-title" > Pilih Sales </h4>
                         </div>
                         <div class="modal-body">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">X Tutup</button>
@@ -110,14 +111,16 @@
                                 <br>
                                 <hr>
 
-                                 <table width="100%" class="table table-bordered table-striped table-hover " id="daftar_kategori_instansi" >
+                                 <table width="100%" class="table table-bordered table-striped table-hover " id="daftar_sales" >
   
                                     <thead>
-                                        <tr>  
-                                            <th style="width:98%;">Nama Kategori Instansi </th> 
-                                         </tr>
+                                        <tr> 
+                                   
+                                            <th style="width:95%;">Nama Sales</th>
+                                             
+                                        </tr>
                                     </thead> 
-                                    <tbody id="daftar_kategori_instansix">
+                                    <tbody id="daftar_salesx">
 
                                 </tbody>
                                 </table> 
@@ -126,105 +129,31 @@
                     </div>
                 </div>
     </div>
+	 
+			
+ 
+   <script type="text/javascript">
+	function PilihSales(){
+        $("#PilihSalesModal").modal({backdrop: 'static', keyboard: false,show:true});
+    }
 
  
-    
-     <!-- modal detail -->
-     <div class="modal fade" id="DetailModal" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title" >Detail</h4>
-                        </div>
-                        <div class="modal-body">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">X Tutup</button>
-                                <br>
-                                <hr>
-                                <table class="table table-bordered table-hovered">
-                                <tr>
-                                    <td>Nama instansi</td>
-                                    <td>:</td>
-                                    <td><div id="nama_instansidtl"> </div></td>
-                                </tr>
-                                <tr>
-                                    <td>Kategori instansi</td>
-                                    <td>:</td>
-                                    <td><div id="nama_kategori_instansidtl"> </div></td>
-                                </tr>
-                                <tr>
-                                    <td>Alamat Instansi</td>
-                                    <td>:</td>
-                                    <td><div id="alamatdtl"> </div></td>
-                                </tr>
-                                <tr>
-                                    <td>Telp Instansi</td>
-                                    <td>:</td>
-                                    <td><div id="telpdtl"> </div></td>
-                                </tr>
-                                <tr>
-                                    <td>PIC Instansi</td>
-                                    <td>:</td>
-                                    <td><div id="picdtl"> </div></td>
-                                </tr>
-                               
-                                </table>
-                                 
-                       </div>
-                     
-                    </div>
-                </div>
-    </div>
-
-
-
- 
-
-  
- 
-   <script type="text/javascript"> 
-    function Detail(id){
-        $("#DetailModal").modal({backdrop: 'static', keyboard: false,show:true});
- 
-		$.ajax({
-			 url:"<?php echo base_url(); ?>instansi/get_data_edit/"+id,
-			 type:"GET",
-			 dataType:"JSON", 
-			 success:function(result){ 
-                  
-				 //$("#DetailModal").modal('show'); 
-                 $("#nama_instansidtl").html(result.nama_instansi);
-                 $("#alamatdtl").html(result.alamat);
-                 $("#telpdtl").html(result.telp);
-                 $("#picdtl").html(result.pic);
-                 $("#nama_kategori_instansidtl").html(result.nama_kategori_instansi);
-			 }
-		 });
-    } 
-    
-    // cari direktorat
-    $('#daftar_kategori_instansi').DataTable( {
-            "ajax": "<?php echo base_url(); ?>kategori_instansi/fetch_kategori_instansi"           
+      
+    $('#daftar_sales').DataTable( {
+        "ajax": "<?php echo base_url(); ?>sales/fetch_sales" 
     });
 
+     var daftar_sales = $('#daftar_sales').DataTable();
      
-     
-    function CariInstansi(){
-        $("#CariInstansiModal").modal({backdrop: 'static', keyboard: false,show:true});
-    } 
-   
-        
-        var daftar_kategori_instansi = $('#daftar_kategori_instansi').DataTable();
-     
-        $('#daftar_kategori_instansi tbody').on('click', 'tr', function () {
+        $('#daftar_sales tbody').on('click', 'tr', function () {
             
-            var content = daftar_kategori_instansi.row(this).data()
+            var content = daftar_sales.row(this).data()
             console.log(content);
-            $("#nama_kategori_instansi").val(content[0]);
-            $("#id_kategori_instansi").val(content[2]);
-            $("#CariInstansiModal").modal('hide');
+            $("#nama_sales").val(content[0]);
+            $("#id_sales_marketing").val(content[5]);
+            $("#PilihSalesModal").modal('hide');
         } );
-
-
+ 
 	 function Ubah_Data(id){
 		$("#defaultModalLabel").html("Form Ubah Data");
 		$("#defaultModal").modal('show');
@@ -236,21 +165,20 @@
 			 success:function(result){  
 				 $("#defaultModal").modal('show'); 
 				 $("#id").val(result.id);
-                 $("#nama_instansi").val(result.nama_instansi);
+                 $("#id_sales_marketing").val(result.id_sales_marketing);
+                 $("#nama_sales").val(result.namasales);
+                 $("#nama_perusahaan").val(result.nama_perusahaan);
+                 $("#jenis_perusahaan").val(result.jenis_perusahaan);
                  $("#alamat").val(result.alamat);
-                 $("#telp").val(result.telp);
-                 $("#pic").val(result.pic);
-                 $("#id_kategori_instansi").val(result.id_kategori_instansi); 
-                 $("#nama_kategori_instansi").val(result.nama_kategori_instansi);
-              
-                  
+                 $("#telp").val(result.telp); 
+                   
 			 }
 		 });
 	 }
  
 	 function Bersihkan_Form(){
         $(':input').val(''); 
-         
+        $("#image1").attr('src','<?php echo base_url('upload/image_prev.jpg'); ?>');
      }
 
 	 function Hapus_Data(id){
@@ -283,45 +211,37 @@
         });
    
     }
-	}
-    
-      
-  
+	} 
 	function Simpan_Data(){
-		//setting semua data dalam form dijadikan 1 variabel 
-		 var formData = new FormData($('#user_form')[0]); 
- 
-                 //transaksi dibelakang layar
-                 $.ajax({
-                 url:"<?php echo base_url(); ?>instansi/simpan_data",
-                 type:"POST",
-                 data:formData,
-                 contentType:false,  
-                 processData:false,   
-                 success:function(result){ 
-                    
-                     $("#defaultModal").modal('hide');
-                     $('#example').DataTable().ajax.reload(); 
-                     $('#user_form')[0].reset();
-                     Bersihkan_Form();
-                     
-                     $.notify("Data berhasil disimpan!", {
-                        animate: {
-                            enter: 'animated fadeInRight',
-                            exit: 'animated fadeOutRight'
-                     } 
-                     },{
-                        type: 'success'
-                    });
-                 }
-                }); 
- 
- 
+	 
+		 var formData = new FormData($('#user_form')[0]);  
+           
+            $.ajax({
+             url:"<?php echo base_url(); ?>instansi/simpan_data",
+             type:"POST",
+             data:formData,
+             contentType:false,  
+             processData:false,   
+             success:function(result){ 
+                
+                 $("#defaultModal").modal('hide');
+                 $('#example').DataTable().ajax.reload(); 
+                 $('#user_form')[0].reset();
+                 $("#image1").attr("src","<?php echo base_url(); ?>/upload/image_prev.jpg");
+                 $.notify("Data berhasil disimpan!", {
+                    animate: {
+                        enter: 'animated fadeInRight',
+                        exit: 'animated fadeOutRight'
+                 } 
+                 } );
+             }
+            }); 
+
          
 
 	}
-      
-	 
+     
+ 
        $(document).ready(function() {
 		   
 		$("#addmodal").on("click",function(){
@@ -329,21 +249,13 @@
             $("#method").val('Add');
             $("#defaultModalLabel").html("Form Tambah Data");
 		});
-
-        var dateObj = new Date();
-        var month = dateObj.getUTCMonth() + 1; //months from 1-12
-        var day = dateObj.getUTCDate();
-        var year = dateObj.getUTCFullYear();
- 
 		 
-		$('#example').append('<caption style="caption-side: top">   </caption>');
-		$('#example').DataTable({
-             
+		$('#example').DataTable( {
 			"ajax": "<?php echo base_url(); ?>instansi/fetch_instansi", 
 		});
-
-
 	  
+
+
 		 
 	  });
   

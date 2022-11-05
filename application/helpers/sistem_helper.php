@@ -24,6 +24,38 @@ if(!function_exists('bagi_nama_div')){
     }
 }
 
+if(!function_exists('level_account')){
+    function level_account($level){
+        switch($level){
+            case '1':
+                return 'Administrator';
+            break;
+            case '2':
+                return 'Sales';
+            break;
+            case '3':
+                return 'Operator';
+            break;
+            case '4':
+                return 'CS';
+            break;
+            case '5':
+                return 'Pimpinan';
+            break;
+            // 1 administrator
+            // 2 sales
+            // 3 operator
+            // 4 cs
+            // 5 pimpinan
+
+            default:
+                return 'Unknown';
+            break;
+        }
+           
+    }
+}
+
  function kekata($x) {
         $x = abs($x);
         $angka = array("", "satu", "dua", "tiga", "empat", "lima",

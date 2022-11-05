@@ -199,7 +199,7 @@
                         </a>
                     </li> 
                     <li>
-                        <a href="<?php echo base_url('cat_training'); ?>">
+                        <a href="<?php echo base_url('kategori_training'); ?>">
                            <i class="material-icons">dns</i>
                             <span>Kategori Training</span>
                         </a>

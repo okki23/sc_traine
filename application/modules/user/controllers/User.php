@@ -56,6 +56,9 @@ class User extends Parent_Controller {
 	}
  
 	public function simpan_data_user(){
+
+		// var_dump($_POST);
+		// die();
 		$data_form = $this->m_user->array_from_post(array('id','username','password','id_pegawai','level'));
 		$id = $data_form['id'];	 
 	 
