@@ -204,6 +204,7 @@
                             <span>Kategori Training</span>
                         </a>
                     </li> 
+                  
                     <!-- <li>
                         <a href="<?php echo base_url('barang'); ?>">
                            <i class="material-icons">dns</i>
@@ -257,23 +258,23 @@
                     </li>
 
                  
-                    <!-- <li>
+                    <li>
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">dns</i>
                             <span>Transaksi</span>
                         </a>
                         <ul class="ml-menu"> 
                             <li>
-                                <a href="<?php echo base_url('pengeluaran_barang'); ?>">
+                                <a href="<?php echo base_url('work_order'); ?>">
                                 <i class="material-icons">dns</i>
-                                    <span>Pengeluaran Barang</span>
+                                    <span>Work Order</span>
                                 </a>
                             </li>  
                         </ul>
                     </li>
 
 
-                    <li>
+                    <!-- <li>
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">dns</i>
                             <span>Report</span>
@@ -292,8 +293,8 @@
                                 </a>
                             </li>   
                         </ul>
-                    </li>
-                      -->
+                    </li> -->
+                     
                     
                 </ul>
 				<!--list menu-->

@@ -11,7 +11,7 @@
  Target Server Version : 80030 (8.0.30)
  File Encoding         : 65001
 
- Date: 05/11/2022 22:36:29
+ Date: 06/11/2022 11:48:50
 */
 
 SET NAMES utf8mb4;
@@ -380,7 +380,7 @@ CREATE TABLE `m_user`  (
   `id_pegawai` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `level` int NULL DEFAULT NULL COMMENT '1 administrator\r\n2 sales\r\n3 operator\r\n4 cs\r\n5 pimpinan',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of m_user
@@ -455,12 +455,15 @@ CREATE TABLE `t_work_order`  (
   `token` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   `id_room` int NULL DEFAULT NULL,
   `status` int NULL DEFAULT NULL,
+  `no_wo` int NULL DEFAULT NULL,
+  `created_at` date NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_work_order
 -- ----------------------------
+INSERT INTO `t_work_order` VALUES (1, 1, 4, 'Bikin Web', '2', 3, 1, 2, 'Bekasi', '2022-11-06', '2022-11-07', '2022-11-08', 'OK', NULL, NULL, NULL, 2, NULL, '553225484', 1, 1, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for t_work_order_detail

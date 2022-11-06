@@ -103,7 +103,7 @@
 
                                   <button type="button" onclick="Simpan_Data();" class="btn btn-success waves-effect"> <i class="material-icons">save</i> Simpan </button>
 
-                                    <button type="button" name="cancel" id="cancel" class="btn btn-danger waves-effect" onclick="javascript:Bersihkan_Form_Order();" > <i class="material-icons">clear</i> Batal</button>
+                                  <button type="button" name="cancel" id="cancel" class="btn btn-danger waves-effect" onclick="javascript:Bersihkan_Form_Order();" > <i class="material-icons">clear</i> Batal</button>
                         </div>
                                  
                         </div>

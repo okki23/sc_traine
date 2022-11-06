@@ -29,7 +29,8 @@ class M_instansi extends Parent_Model {
                
                     $sub_array[] = '<a href="javascript:void(0)" class="btn btn-warning btn-xs waves-effect" id="edit" onclick="Ubah_Data('.$row->id.');" > <i class="material-icons">create</i> Ubah </a> &nbsp;
                     <button typpe="button" onclick="Hapus('.$row->id.');" class = "btn btn-danger btn-xs waves-effect"> <i class="material-icons">delete_forever</i> Hapus </button>';  
-                    
+                    $sub_array[] = $row->id;    
+               
                     $data[] = $sub_array;  
                     $no++;
                }  

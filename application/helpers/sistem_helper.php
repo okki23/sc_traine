@@ -1,4 +1,5 @@
 <?php
+
 if(!function_exists('level_help')){
 	function level_help($params){
         $res = '';
@@ -24,6 +25,14 @@ if(!function_exists('bagi_nama_div')){
     }
 }
 
+if(!function_exists('get_user_account')){
+    function get_user_account($userid){
+        $CI =& get_instance();
+        $sql = "select * from m_user where id = '$userid'";
+        $get = $CI->db->query($sql)->row(); 
+        return $get->username;
+    }
+}
 if(!function_exists('level_account')){
     function level_account($level){
         switch($level){
@@ -87,7 +96,28 @@ if(!function_exists('level_account')){
     
 }
 
+if(!function_exists('status_wo')){
+    function status_wo($status){
+        switch($status){
+            case '1':
+                return 'Pengajuan';
+            break;
+            case '2':
+                return 'Dimulai';
+            break;
+            case '3':
+                return 'Selesai';
+            break;
+            case '41':
+                return 'Penyerahan Sertifikat';
+            break;
 
+            default:
+                return 'Unknown';
+            break;
+        }
+    }
+}
 if (!function_exists('tanggalan_mod')) {
 
     function tanggalan_mod($tanggal) {

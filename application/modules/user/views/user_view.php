@@ -259,6 +259,10 @@
  
      function Bersihkan_Form(){
         $(':input').val(''); 
+        $("#csbtn").attr('class','btn btn-default');
+        $("#adminbtn").attr('class','btn btn-default');
+        $("#salesbtn").attr('class','btn btn-default');
+        $("#operatorbtn").attr('class','btn btn-default');
      }
 
      function CariAdminPPPU(){
@@ -311,13 +315,9 @@
     function Simpan_Data(){
         //setting semua data dalam form dijadikan 1 variabel 
          var formData = new FormData($('#user_form')[0]); 
-
-        console.log(formData);
-
+ 
          //validasi form sebelum submit ke controller
-         var username = $("#username").val();
-        
-        
+         var username = $("#username").val(); 
           
          if(username == ''){
             alert("Username Belum anda masukkan!");
@@ -330,13 +330,16 @@
             $.ajax({
              url:"<?php echo base_url(); ?>user/simpan_data_user",
              type:"POST",
-             data:formData, 
+             data:formData,  
+             contentType:false,  
+             processData:false,    
              success:function(result){ 
                 
                  $("#defaultModal").modal('hide');
                  $('#example').DataTable().ajax.reload(); 
                  $('#user_form')[0].reset();
                  
+                 Bersihkan_Form();
                  $.notify("Data berhasil disimpan!", {
                     animate: {
                         enter: 'animated fadeInRight',

@@ -25,7 +25,7 @@ class Login extends Parent_Controller {
 			$session = $this->m_login->autentikasi($username,$password)->row();
 			 
 			if($auth->num_rows() > 0){
-				$this->session->set_userdata(array('username'=>$session->username,'level'=>$session->level,'userid'=>$session->id,'foto'=>$session->foto));
+				$this->session->set_userdata(array('username'=>$session->username,'level'=>$session->level,'userid'=>$session->id));
 				 
 
 				if($session->level == '1'){
