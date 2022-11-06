@@ -26,13 +26,8 @@ class Login extends Parent_Controller {
 			 
 			if($auth->num_rows() > 0){
 				$this->session->set_userdata(array('username'=>$session->username,'level'=>$session->level,'userid'=>$session->id));
-				 
-
-				if($session->level == '1'){
-					redirect(base_url('dashboard'));
-				}else{
-					redirect(base_url('front'));
-				}
+				    
+					redirect(base_url('dashboard')); 
 			}else{
 				echo "<script language=javascript>
 				alert('Akun yang anda masukkan tidak tersedia, Periksa kembali!');

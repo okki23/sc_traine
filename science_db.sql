@@ -11,7 +11,7 @@
  Target Server Version : 80030 (8.0.30)
  File Encoding         : 65001
 
- Date: 06/11/2022 11:48:50
+ Date: 07/11/2022 02:54:20
 */
 
 SET NAMES utf8mb4;
@@ -258,11 +258,14 @@ CREATE TABLE `m_peserta`  (
   `telp` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of m_peserta
 -- ----------------------------
+INSERT INTO `m_peserta` VALUES (1, 1, 'Okki Setyawan', 'Jakarta', '2022-11-07', 'Bekasi', '0219874433', 'okkisetyawan@gmail.com');
+INSERT INTO `m_peserta` VALUES (2, 1, 'Joni', 'Bekasi', '2022-11-07', 'Jakarta', '02187234234', 'okkisetyawan@gmail.com');
+INSERT INTO `m_peserta` VALUES (3, 1, 'Okki', 'bekasi', '2022-11-07', 'bekasi', '02128274234', 'okkisetyawan@gmail.com');
 
 -- ----------------------------
 -- Table structure for m_room
@@ -456,14 +459,14 @@ CREATE TABLE `t_work_order`  (
   `id_room` int NULL DEFAULT NULL,
   `status` int NULL DEFAULT NULL,
   `no_wo` int NULL DEFAULT NULL,
-  `created_at` date NULL DEFAULT NULL,
+  `created_at` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_work_order
 -- ----------------------------
-INSERT INTO `t_work_order` VALUES (1, 1, 4, 'Bikin Web', '2', 3, 1, 2, 'Bekasi', '2022-11-06', '2022-11-07', '2022-11-08', 'OK', NULL, NULL, NULL, 2, NULL, '553225484', 1, 1, NULL, NULL);
+INSERT INTO `t_work_order` VALUES (2, 1, 5, 'Belajar Website Menggunakan PHP dan MYSQL', '2', 5, 1, 2, 'Jakarta', '2022-11-06', '2022-11-07', '2022-11-09', 'sss', NULL, NULL, NULL, 3, NULL, '82172716', 1, 4, 2147483647, '2022-11-06 05:53:00');
 
 -- ----------------------------
 -- Table structure for t_work_order_detail
@@ -474,10 +477,13 @@ CREATE TABLE `t_work_order_detail`  (
   `id_peserta` int NULL DEFAULT NULL,
   `token` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_work_order_detail
 -- ----------------------------
+INSERT INTO `t_work_order_detail` VALUES (1, 1, '13133123');
+INSERT INTO `t_work_order_detail` VALUES (2, 2, '123123');
+INSERT INTO `t_work_order_detail` VALUES (3, 3, '1313123');
 
 SET FOREIGN_KEY_CHECKS = 1;

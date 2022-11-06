@@ -22,12 +22,12 @@ f
 							   <table class="table table-bordered table-striped table-hover js-basic-example" id="example" >
 									<thead>
 										<tr>
-											<th style="width:5%;">Nama Pelatihan</th>
-                                            <th style="width:10%;">Kategori Pelatihan</th>  
-											<th style="width:10%;">Trainer</th>  
-                                            <th style="width:10%;">Start Date</th>  
-                                            <th style="width:10%;">End Date</th> 
-                                            <th style="width:10%;">Status</th>   
+											<th style="width:10%;">Nama Pelatihan</th>
+                                            <th style="width:5%;">Kategori Pelatihan</th>  
+											<th style="width:5%;">Trainer</th>  
+                                            <th style="width:5%;">Start Date</th>  
+                                            <th style="width:5%;">End Date</th> 
+                                            <th style="width:5%;">Status</th>   
 											<th style="width:10%;">Opsi</th> 
 										</tr>
 									</thead> 
@@ -56,7 +56,7 @@ f
                                  <input type="hidden" name="id" id="id"> 
                                     <div class="form-group">
                                         <label for=""> Nomor WO</label>
-                                        <input type="hidden" name="token" id="token" value="<?php echo rand(); ?>">
+                                        <input type="hidden" name="token" id="token">
                                         <div class="form-line">
                                             <input type="text" name="no_wo" id="no_wo" class="form-control"  readonly="readonly" />
                                         </div>
@@ -64,14 +64,14 @@ f
                                     <div class="form-group">
                                         <label for=""> Tanggal </label>
                                         <div class="form-line">
-                                            <input type="text" name="tanggal" id="tanggal" class="form-control" readonly="readonly" value="<?php echo date('Y-m-d'); ?>" />
+                                            <input type="text" name="created_at" id="created_at" class="form-control" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for=""> Sales </label>
                                         <div class="form-line">
-                                        <input type="text" name="nama_sales" id="nama_sales" class="form-control" readonly="readonly" value="<?php echo get_user_account($this->session->userdata('userid')); ?>" />
-                                            <input type="hidden" name="id_sales" id="id_sales" class="form-control" readonly="readonly" value="<?php echo $this->session->userdata('userid'); ?>" />
+                                        <input type="text" name="nama_sales" id="nama_sales" class="form-control" readonly="readonly"   />
+                                            <input type="hidden" name="id_sales" id="id_sales" class="form-control" readonly="readonly"  />
                                         </div>
                                     </div>
                                     <br>
@@ -79,18 +79,21 @@ f
                                     <br>
                                     <div class="form-group">
                                         <div class="form-line">
+                                            <label for=""> Judul Training </label>
                                             <input type="text" name="judul_training" id="judul_training" class="form-control" placeholder="Judul Training" />
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-line">
+                                            <label for=""> Durasi </label>
                                             <input type="text" name="durasi" id="durasi" class="form-control" placeholder="Durasi (Hari)" />
                                         </div>
                                     </div>
                                     <div class="input-group">
                                                 <div class="form-line">
+                                                    <label for="">Kategori Training</label>
                                                     <input type="text" name="kategori_training" id="kategori_training" class="form-control" readonly="readonly" >
-                                                    <input type="hidden" name="id_kategori_training" id="id_kategori_training" required>
+                                                    <input type="text" name="id_kategori_training" id="id_kategori_training" required>
                                                     
                                                 </div>
                                                 <span class="input-group-addon">
@@ -99,8 +102,9 @@ f
                                     </div> 
                                     <div class="input-group">
                                                 <div class="form-line">
+                                                    <label for="">Instansi</label>
                                                     <input type="text" name="nama_instansi" id="nama_instansi" class="form-control" readonly="readonly" >
-                                                    <input type="hidden" name="id_instansi" id="id_instansi" required>
+                                                    <input type="text" name="id_instansi" id="id_instansi" required>
                                                     
                                                 </div>
                                                 <span class="input-group-addon">
@@ -109,8 +113,9 @@ f
                                     </div> 
                                     <div class="input-group">
                                                 <div class="form-line">
+                                                    <label for="">Trainer</label>
                                                     <input type="text" name="nama_trainer" id="nama_trainer" class="form-control" readonly="readonly" >
-                                                    <input type="hidden" name="id_trainer" id="id_trainer" required>
+                                                    <input type="text" name="id_trainer" id="id_trainer" required>
                                                     
                                                 </div>
                                                 <span class="input-group-addon">
@@ -119,8 +124,9 @@ f
                                     </div> 
                                     <div class="input-group">
                                                 <div class="form-line">
+                                                    <label for="">Materi</label>
                                                     <input type="text" name="nama_materi" id="nama_materi" class="form-control" readonly="readonly" >
-                                                    <input type="hidden" name="id_materi" id="id_materi" required>
+                                                    <input type="text" name="id_materi" id="id_materi" required>
                                                     
                                                 </div>
                                                 <span class="input-group-addon">
@@ -130,8 +136,9 @@ f
 
                                     <div class="input-group">
                                                 <div class="form-line">
+                                                    <label for="">Room</label>
                                                     <input type="text" name="nama_room" id="nama_room" class="form-control" readonly="readonly" >
-                                                    <input type="hidden" name="id_room" id="id_room" required>
+                                                    <input type="text" name="id_room" id="id_room" required>
                                                     
                                                 </div>
                                                 <span class="input-group-addon">
@@ -141,32 +148,39 @@ f
 
                                     <div class="form-group">
                                         <div class="form-line">
+                                            <label for="">Jumlah Peserta</label>
                                             <input type="text" name="jml_peserta" id="jml_peserta" class="form-control" placeholder="Jumlah Peserta" />
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-line">
+                                            <label for="">Lokasi Pelaksanaan</label>
                                             <input type="text" name="lokasi_pelaksanaan" id="lokasi_pelaksanaan" class="form-control" placeholder="Lokasi Pelaksanaan" />
                                         </div>
                                     </div> 
                                     <div class="form-group">
                                         <div class="form-line">
+                                            <label for="">Tanggal Dimulai</label>
                                             <input type="text" name="tanggal_start" id="tanggal_start" class="datepicker form-control" placeholder="Tanggal Mulai" />
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-line">
+                                            <label for="">Tanggal Berakhir</label>
                                             <input type="text" name="tanggal_end" id="tanggal_end" class="datepicker form-control" placeholder="Tanggal Selesai" />
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-line">
+                                            <label for="">Tanggal Serfitikat</label>
                                             <input type="text" name="tanggal_sertifikat" id="tanggal_sertifikat" class="datepicker form-control" placeholder="Tanggal Sertifikat" />
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" name="keterangan" id="keterangan" class="form-control" placeholder="Keterangan" />
+                                            <label for="">Keterangan</label>
+                                            <textarea name="keterangan" id="keterangan" cols="30" rows="10" class="form-control"></textarea>
+                                            <!-- <input type="text" name="keterangan" id="keterangan" class="form-control" placeholder="Keterangan" /> -->
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -365,42 +379,30 @@ f
 	
 	<!-- detail data work_order -->
 	<div class="modal fade" id="DetailModal" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Detail work_order</h4>
+                            <h4 class="modal-title">Detail Work Order</h4>
                         </div>
                         <div class="modal-body">
 						
 						<table class="table table-responsive">
-                        <tr>
-								<td style="font-weight:bold;"> NIP</td>
+                            <tr>
+								<td style="font-weight:bold;"> No WO</td>
 								<td> : </td>
-								<td> <p id="nipdtl"> </p> </td>
-								
-								<td style="font-weight:bold;"> Nama</td>
-								<td> : </td>
-								<td> <p id="namadtl"> </p> </td> 
+								<td> <p id="nowodtl"> </p> </td>
 							</tr>
 							 
-							<tr>
-								<td style="font-weight:bold;"> Jabatan</td>
+							<tr>   
+								<td style="font-weight:bold;"> Tanggal </td>
 								<td> : </td>
-								<td> <p id="nama_jabatandtl"> </p> </td>
-								
-								<td style="font-weight:bold;"> Telp</td>
-								<td> : </td>
-								<td> <p id="telpdtl"> </p> </td> 
+								<td> <p id="tglwodtl"> </p> </td>  
                             </tr>
                             
-                            <tr>
-								<td style="font-weight:bold;"> Alamat</td>
+                            <tr>	
+                                <td style="font-weight:bold;"> Sales</td>
 								<td> : </td>
-								<td> <p id="alamatdtl"> </p> </td>
-								
-								<td style="font-weight:bold;"> Email</td>
-								<td> : </td>
-								<td> <p id="emaildtl"> </p> </td> 
+								<td> <p id="salesdtl"> </p> </td> 
 							</tr>
 							 
 							<tr>
@@ -572,50 +574,17 @@ f
 			 success:function(result){  
                  var nf = new Intl.NumberFormat();
                  $("#id_jabatandtl").html(result.id_jabatan);
-                 $("#nama_jabatandtl").html(result.nama_jabatan);
-                 $("#nipdtl").html(result.nip); 
-                 $("#namadtl").html(result.nama); 
-                 $("#telpdtl").html(result.telp); 
-                 $("#alamatdtl").html(result.alamat); 
-                 $("#emaildtl").html(result.email); 
-			 	  
-				 $("#foto_dtl").attr("src","upload/"+result.foto);
-				 
-				 
+                 $("#nowodtl").html(result.no_wo);
+                 $("#tglwodtl").html(result.created_at); 
+                 $("#salesdtl").html(result.namasales);  
+
+                 
 				 
 			 }
 		 });
 	 }
 
-
-     
-    // function Bersihkan_Form_Order(){
-        
-    //     var no_wo = $("#no_wo").val();
-    //     swal({
-    //     title: "Anda yakin ingin membatalkan Work Order ini?",
-    //     text: "ini akan membatalkan Work Order :  "+no_wo+" !",
-    //     type: "warning",
-    //     showCancelButton: true,
-    //     confirmButtonClass: "btn-danger",
-    //     confirmButtonText: "Ya",
-    //     cancelButtonText: "Tidak",
-    //     closeOnConfirm: false,
-    //     closeOnCancel: false
-    //     },
-    //     function(isConfirm) {
-    //         if (isConfirm) {
-    //                 swal("Transaksi Batal!", "Transaksi berhasil dibatalkan", "success");
-    //                 $("#defaultModal").modal('hide');
-    //                 $(':input').val('');  
-    //         }else{
-    //         swal("Lanjut", "Transaksi tetap dilanjutkan", "success");
-    //       }
-    //     });
-      
-       
-    // }
-
+ 
        
 	 function Ubah_Data(id){
 		$("#defaultModalLabel").html("Form Ubah Data");
@@ -629,16 +598,56 @@ f
                 
 				 $("#defaultModal").modal('show'); 
 				 $("#id").val(result.id);
-                 $("#id_jabatan").val(result.id_jabatan);
-                 $("#nama_jabatan").val(result.nama_jabatan);
-                 $("#nip").val(result.nip);
-                 $("#nama").val(result.nama);
-                 $("#alamat").val(result.alamat);
-                 $("#telp").val(result.telp);
-                 $("#email").val(result.email);
-                 $("#foto").val(result.foto);
-                  
-				 $('#image1').attr('src',"upload/"+result.foto);
+                 $("#id_sales").val(result.id_sales);
+                 $("#nama_sales").val(result.namasales);
+                 $("#no_wo").val(result.no_wo);
+                 $("#token").val(result.token);
+                 $("#created_at").val(result.created_at);
+                 $("#judul_training").val(result.judul_training);
+                 $("#durasi").val(result.durasi);
+                 $("#kategori_training").val(result.kategori_training);                  
+                 $("#id_kategori_training").val(result.id_kategori_training);
+                 $("#nama_instansi").val(result.nama_perusahaan);                  
+                 $("#id_instansi").val(result.id_instansi);
+                 $("#nama_trainer").val(result.namatrainer);                  
+                 $("#id_trainer").val(result.id_trainer);
+                 $("#nama_materi").val(result.nama_materi);                  
+                 $("#id_materi").val(result.id_materi);
+                 $("#nama_room").val(result.room);                  
+                 $("#id_room").val(result.id_room);
+                 $("#jml_peserta").val(result.jml_peserta);
+                 $("#lokasi_pelaksanaan").val(result.lokasi_pelaksanaan);
+                 $("#tanggal_start").val(result.tanggal_start);
+                 $("#tanggal_end").val(result.tanggal_end);
+                 $("#tanggal_sertifikat").val(result.tanggal_sertifikat);
+                 $("#keterangan").html(result.keterangan);
+                 $("#status").val(result.status);
+
+
+                 
+                if(result.status == '1'){
+                    $("#btna").attr('class','btn btn-primary');
+                    $("#btnb").attr('class','btn btn-default'); 
+                    $("#btnc").attr('class','btn btn-default'); 
+                    $("#btnd").attr('class','btn btn-default'); 
+                }else if(result.status == '2'){
+                    $("#btnb").attr('class','btn btn-primary');
+                    $("#btna").attr('class','btn btn-default'); 
+                    $("#btnc").attr('class','btn btn-default'); 
+                    $("#btnd").attr('class','btn btn-default'); 
+                }else if(result.status == '3'){
+                    $("#btnc").attr('class','btn btn-primary');
+                    $("#btna").attr('class','btn btn-default'); 
+                    $("#btnb").attr('class','btn btn-default'); 
+                    $("#btnd").attr('class','btn btn-default'); 
+                }else if(result.status == '4'){
+                    $("#btnd").attr('class','btn btn-primary');
+                    $("#btna").attr('class','btn btn-default'); 
+                    $("#btnb").attr('class','btn btn-default'); 
+                    $("#btnc").attr('class','btn btn-default'); 
+                 }
+  
+
                   
 			 }
 		 });
@@ -646,7 +655,11 @@ f
  
 	 function Bersihkan_Form(){
         $(':input').val(''); 
-        $("#image1").attr('src','<?php echo base_url('upload/image_prev.jpg'); ?>');
+        $("#btna").attr('class','btn btn-default'); 
+        $("#btnb").attr('class','btn btn-default'); 
+        $("#btnc").attr('class','btn btn-default'); 
+        $("#btnd").attr('class','btn btn-default'); 
+        
      }
 
 	 function Hapus_Data(id){
@@ -699,6 +712,8 @@ f
              url:"<?php echo base_url(); ?>work_order/simpan_data",
              type:"POST",
              data:formData, 
+             contentType:false,  
+             processData:false,   
              success:function(result){ 
                 
                  $("#defaultModal").modal('hide');
@@ -732,9 +747,14 @@ f
 			$("#defaultModal").modal({backdrop: 'static', keyboard: false,show:true});
             $("#method").val('Add');
             $("#defaultModalLabel").html("Form Tambah Data");
-            $.get("<?php echo base_url('work_order/get_last_id'); ?>",function(result){
+            $.get("<?php echo base_url('work_order/header_wo'); ?>",function(result){
                 // console.log(result);
-                $("#no_wo").val(result);
+                var parsing = JSON.parse(result);
+                $("#no_wo").val(parsing.no_wo);
+                $("#created_at").val(parsing.date);
+                $("#nama_sales").val(parsing.useraccount);
+                $("#id_sales").val(parsing.userid);
+                $("#token").val(parsing.token);
             });
 		});
 		
@@ -745,7 +765,7 @@ f
 		
 		$('#example').DataTable( {
 			"ajax": "<?php echo base_url(); ?>work_order/fetch_work_order",
-      'rowsGroup': [1] 
+            'rowsGroup': [1] 
 		});
 	 
 	    $('#daftar_sales').DataTable( {

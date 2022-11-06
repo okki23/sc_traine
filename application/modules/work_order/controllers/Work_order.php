@@ -2,11 +2,10 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
  
 
-class Work_order extends Parent_Controller {
-  
+class Work_order extends Parent_Controller { 
 
   var $nama_tabel = 't_work_order';
-  var $daftar_field = array('id','id_sales','id_trainer','judul_training','durasi','id_kategori_training','id_instansi','jml_peserta','lokasi_pelaksanaan','tanggal_start','tanggal_end','tanggal_sertifikat','keterangan','is_approve_sales','is_approve_education','is_approve_sales_lead','id_materi','total_jampel','token','id_room','status');
+  var $daftar_field = array('id','id_sales','id_trainer','judul_training','durasi','id_kategori_training','id_instansi','jml_peserta','lokasi_pelaksanaan','tanggal_start','tanggal_end','tanggal_sertifikat','keterangan','is_approve_sales','is_approve_education','is_approve_sales_lead','id_materi','total_jampel','token','id_room','status','no_wo','created_at');
   var $primary_key = 'id'; 
 
  	public function __construct(){
@@ -28,20 +27,28 @@ class Work_order extends Parent_Controller {
 		$this->load->view('template_view',$data);		
    
 	}
+
+	public function header_wo(){
+		$params = date('Ymd');
+		$now = date('Y-m-d H:i:s');
+		$whoami = get_user_account($this->session->userdata('userid'));
+		$last_id = $this->transaksi_id($params); 
+		$token = rand();
+
+		$parse = array('no_wo'=>$last_id,'userid'=>$this->session->userdata('userid'),'useraccount'=>$whoami,'date'=>$now,'token'=>$token);
+		echo json_encode($parse);  
+	}
  
 
 	public function get_last_id(){
 		$params = date('Ymd');
 		echo $this->transaksi_id($params);  
 	}
-
-	
-     
+ 
 	public function transaksi_id($param = '') {
         $data = $this->m_work_order->get_no();
         $lastid = $data->row();
-        $idnya = $lastid->id;
-
+        $idnya = $lastid->id; 
 
         if($idnya == '') { // bila data kosong
             $ID = $param . "0000001";
@@ -81,8 +88,14 @@ class Work_order extends Parent_Controller {
    
 	public function get_data_edit(){
 		$id = $this->uri->segment(3); 
-		$sql = "select a.*,b.nama_jabatan from m_work_order a
-		left join m_jabatan b on b.id = a.id_jabatan where a.id = '".$id."' "; 
+		$sql = "select a.*,b.nama_perusahaan,c.nama as namatrainer,d.nama as namasales,
+		e.nama_materi,f.kategori_training,g.room from t_work_order a
+       left join m_instansi b on b.id = a.id_instansi
+       left join m_trainer c on c.id = a.id_trainer
+       left join m_sales d on d.id = a.id_sales
+       left join m_materi e on e.id = a.id_materi
+       left join m_kategori_training f on f.id = a.id_kategori_training
+       left join m_room g on g.id = a.id_room where a.id = '".$id."' "; 
 		$get = $this->db->query($sql)->row();
 		echo json_encode($get,TRUE);
 	}

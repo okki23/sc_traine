@@ -108,7 +108,7 @@ if(!function_exists('status_wo')){
             case '3':
                 return 'Selesai';
             break;
-            case '41':
+            case '4':
                 return 'Penyerahan Sertifikat';
             break;
 
