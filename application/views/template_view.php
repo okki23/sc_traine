@@ -148,6 +148,16 @@
             <!-- Menu -->
             <div class="menu">
                 
+            <?php
+            $role_administrator = array(1);
+            $role_sales = array(2);
+            $role_cs_op = array(3,4);
+            $role_lead_sale_edu = array(5,6); 
+
+            if($this->session->userdata('level')){
+                
+            }
+            ?>
                     <ul class="list">
                     <li>
                         <a href="<?php echo base_url('dashboard'); ?>">

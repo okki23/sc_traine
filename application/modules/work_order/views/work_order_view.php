@@ -475,10 +475,50 @@ f
                     </div>
                 </div>
     </div>
+
+    
+	<!-- detail data peserta -->
+	<div class="modal fade" id="PesertaModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Detail Peserta</h4>
+                        </div>
+                        <div class="modal-body">
+                                <button type="button" class="btn btn-danger" onclick="ClosePeserta();">X Tutup</button>
+
+                                <br>
+                                <hr>
+
+                                 <table width="100%" class="table table-bordered table-striped table-hover " id="daftar_peserta" >
+  
+                                    <thead>
+                                        <tr> 
+                                   
+                                            <th style="width:95%;">Nama Peserta</th>
+                                            <th style="width:95%;">Telepon (Whatsapp) </th>
+                                            <th style="width:95%;">Email</th>
+                                             
+                                        </tr>
+                                    </thead> 
+                                    <tbody id="daftar_pesertax">
+
+                                </tbody>
+                                </table> 
+                       </div>
+                     
+                    </div>
+                </div>
+    </div>
 			
  
    <script type="text/javascript">
 
+    function ClosePeserta(){ 
+         $('#daftar_peserta').DataTable().clear();
+        $('#daftar_peserta').DataTable().destroy();
+        $("#PesertaModal").modal('hide');
+    }
     $("#btna").on("click",function(){
         $("#status").val('1');
         $(this).attr('class','btn btn-primary');
@@ -515,7 +555,16 @@ f
         
     });
  
+    function Show_Peserta(id){ 
+        $("#PesertaModal").modal({backdrop: 'static', keyboard: false,show:true}); 
+        $('#daftar_peserta').DataTable( {
+            "ajax": "<?php echo base_url('work_order/fetch_audience/'); ?>"+id
+        });
+        // $('#daftar_peserta').DataTable().clear();
+        // $('#daftar_peserta').DataTable().destroy();
+      
 
+	}
 
 	function PilihCatTraining(){
         $("#PilihCatTrainingModal").modal({backdrop: 'static', keyboard: false,show:true});
@@ -557,7 +606,7 @@ f
         "ajax": "<?php echo base_url(); ?>room/fetch_room" 
     });
 
-
+   
     var daftar_cat_training = $('#daftar_cat_training').DataTable();
      
         $('#daftar_cat_training tbody').on('click', 'tr', function () {

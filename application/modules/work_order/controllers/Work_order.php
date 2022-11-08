@@ -44,6 +44,30 @@ class Work_order extends Parent_Controller {
 		$params = date('Ymd');
 		echo $this->transaksi_id($params);  
 	}
+
+	public function fetch_audience(){
+		$id = $this->uri->segment(3);
+
+		$listing = $this->db->query('select a.juduL_training,a.no_wo,a.token,c.nama,c.telp,c.email from t_work_order a 
+		left join t_work_order_detail b on b.token = a.token
+		left join m_peserta c on c.id = b.id_peserta
+		where a.id = "'.$id.'" ')->result(); 
+		$data = array();  
+		foreach($listing as $row)  
+		{  
+			 $sub_array = array(); 
+
+			 $sub_array[] = $row->nama;    
+			 $sub_array[] = $row->telp;    
+			 $sub_array[] = $row->email;    
+		 
+			 $data[] = $sub_array;   
+		}  
+		 
+		echo json_encode(array("data"=>$data));
+		
+	 
+	}
  
 	public function transaksi_id($param = '') {
         $data = $this->m_work_order->get_no();

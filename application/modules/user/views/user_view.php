@@ -80,15 +80,7 @@
                                     
                                         <label> User Type  </label>
                                         <br>
-
-                                        <!-- <select name="level" id="level" class="form-control"> 
-                                            <option value="">--Pilih Level--</option>
-                                            <option value="1"> Administrator</option>
-                                            <option value="2"> Sales</option>
-                                            <option value="3"> Operator</option>
-                                            <option value="4"> CS</option>
-                                            <option value="5"> Pimpinan</option>
-                                        </select> -->
+ 
                                         <input type="hidden" name="level" id="level">
 
                                         <button type="button" id="adminbtn" class="btn btn-default waves-effect "> Admin </button>
@@ -99,7 +91,10 @@
 
                                         <button type="button" id="csbtn" class="btn btn-default waves-effect "> CS </button>
 
-                                         
+                                        <button type="button" id="salesleadbtn" class="btn btn-default waves-effect "> Sales Lead </button>
+
+                                        <button type="button" id="eduleadbtn" class="btn btn-default waves-effect "> Educational Lead </button>
+ 
                                     
                                     </div>
                                  
@@ -135,8 +130,7 @@
                                         <tr>  
                                             <th style="width:98%;">NIP </th> 
                                             <th style="width:98%;">Nama </th> 
-                                         </tr>
-                                          
+                                        </tr> 
                                     </thead> 
                                     <tbody id="daftar_karyawan">
 
@@ -158,6 +152,8 @@
         $("#salesbtn").attr('class','btn btn-default'); 
         $("#operatorbtn").attr('class','btn btn-default'); 
         $("#csbtn").attr('class','btn btn-default'); 
+        $("#salesleadbtn").attr('class','btn btn-default'); 
+        $("#eduleadbtn").attr('class','btn btn-default'); 
         
     });
 
@@ -167,6 +163,8 @@
         $("#adminbtn").attr('class','btn btn-default'); 
         $("#operatorbtn").attr('class','btn btn-default'); 
         $("#csbtn").attr('class','btn btn-default'); 
+        $("#salesleadbtn").attr('class','btn btn-default'); 
+        $("#eduleadbtn").attr('class','btn btn-default'); 
         
     });
 
@@ -176,6 +174,8 @@
         $("#adminbtn").attr('class','btn btn-default'); 
         $("#salesbtn").attr('class','btn btn-default');  
         $("#csbtn").attr('class','btn btn-default'); 
+        $("#salesleadbtn").attr('class','btn btn-default'); 
+        $("#eduleadbtn").attr('class','btn btn-default'); 
         
     });
 
@@ -185,16 +185,29 @@
         $("#adminbtn").attr('class','btn btn-default'); 
         $("#salesbtn").attr('class','btn btn-default');  
         $("#operatorbtn").attr('class','btn btn-default'); 
+        $("#salesleadbtn").attr('class','btn btn-default'); 
+        $("#eduleadbtn").attr('class','btn btn-default'); 
         
     });
 
-    $("#pimpinantbn").on("click",function(){
+    $("#salesleadbtn").on("click",function(){
         $("#level").val('5');
         $(this).attr('class','btn btn-primary');
         $("#adminbtn").attr('class','btn btn-default'); 
         $("#salesbtn").attr('class','btn btn-default');  
         $("#operatorbtn").attr('class','btn btn-default'); 
         $("#csbtn").attr('class','btn btn-default'); 
+        $("#eduleadbtn").attr('class','btn btn-default'); 
+    });
+
+    $("#eduleadbtn").on("click",function(){
+        $("#level").val('6');
+        $(this).attr('class','btn btn-primary');
+        $("#adminbtn").attr('class','btn btn-default'); 
+        $("#salesbtn").attr('class','btn btn-default');  
+        $("#operatorbtn").attr('class','btn btn-default'); 
+        $("#csbtn").attr('class','btn btn-default'); 
+        $("#salesleadbtn").attr('class','btn btn-default'); 
     });
 
     // function CariKaryawan(){
@@ -236,23 +249,44 @@
                     $("#salesbtn").attr('class','btn btn-default'); 
                     $("#operatorbtn").attr('class','btn btn-default'); 
                     $("#csbtn").attr('class','btn btn-default'); 
+                    $("#salesleadbtn").attr('class','btn btn-default'); 
+                    $("#eduleadbtn").attr('class','btn btn-default'); 
                 }else if(result.level == '2'){
                     $("#salesbtn").attr('class','btn btn-primary');
                     $("#adminbtn").attr('class','btn btn-default'); 
                     $("#operatorbtn").attr('class','btn btn-default'); 
                     $("#csbtn").attr('class','btn btn-default');  
+                    $("#salesleadbtn").attr('class','btn btn-default'); 
+                    $("#eduleadbtn").attr('class','btn btn-default'); 
                 }else if(result.level == '3'){
                     $("#operatorbtn").attr('class','btn btn-primary');
                     $("#adminbtn").attr('class','btn btn-default'); 
                     $("#salesbtn").attr('class','btn btn-default');  
                     $("#csbtn").attr('class','btn btn-default'); 
+                    $("#salesleadbtn").attr('class','btn btn-default'); 
+                    $("#eduleadbtn").attr('class','btn btn-default'); 
                 }else if(result.level == '4'){
                     $("#csbtn").attr('class','btn btn-primary');
                     $("#adminbtn").attr('class','btn btn-default'); 
                     $("#salesbtn").attr('class','btn btn-default');  
                     $("#operatorbtn").attr('class','btn btn-default');
-                 }
-  
+                    $("#salesleadbtn").attr('class','btn btn-default'); 
+                    $("#eduleadbtn").attr('class','btn btn-default');   
+                }else if(result.level == '5'){
+                    $("#salesleadbtn").attr('class','btn btn-primary');
+                    $("#csbtn").attr('class','btn btn-default');
+                    $("#adminbtn").attr('class','btn btn-default'); 
+                    $("#salesbtn").attr('class','btn btn-default');  
+                    $("#operatorbtn").attr('class','btn btn-default');
+                    $("#eduleadbtn").attr('class','btn btn-default');  
+                }else if(result.level == '6'){
+                    $("#eduleadbtn").attr('class','btn btn-primary');
+                    $("#csbtn").attr('class','btn btn-primary');
+                    $("#adminbtn").attr('class','btn btn-default'); 
+                    $("#salesbtn").attr('class','btn btn-default');  
+                    $("#operatorbtn").attr('class','btn btn-default');
+                    $("#salesleadbtn").attr('class','btn btn-default'); 
+                } 
              }
          });
      }

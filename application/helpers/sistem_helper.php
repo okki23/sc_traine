@@ -49,14 +49,11 @@ if(!function_exists('level_account')){
                 return 'CS';
             break;
             case '5':
-                return 'Pimpinan';
+                return 'Sales Lead';
             break;
-            // 1 administrator
-            // 2 sales
-            // 3 operator
-            // 4 cs
-            // 5 pimpinan
-
+            case '6':
+                return 'Educational Lead';
+            break; 
             default:
                 return 'Unknown';
             break;
