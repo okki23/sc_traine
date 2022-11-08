@@ -91,6 +91,10 @@
     <script src="<?php echo base_url(); ?>assets/plugins/jquery-validation/jquery.validate.js"></script>
     <script src="<?php echo base_url(); ?>assets/plugins/jquery-steps/jquery.steps.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/pages/forms/form-wizard.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
     <script type="text/javascript">
      //$("#wrapper").toggleClass("toggled");
     </script>
@@ -149,16 +153,10 @@
             <div class="menu">
                 
             <?php
-            $role_administrator = array(1);
-            $role_sales = array(2);
-            $role_cs_op = array(3,4);
-            $role_lead_sale_edu = array(5,6); 
-
-            if($this->session->userdata('level')){
-                
-            }
+           
+            if($this->session->userdata('level') == 1){
             ?>
-                    <ul class="list">
+                <ul class="list">
                     <li>
                         <a href="<?php echo base_url('dashboard'); ?>">
                             <i class="material-icons">home</i>
@@ -183,13 +181,7 @@
                            <i class="material-icons">dns</i>
                             <span>Trainer</span>
                         </a>
-                    </li> 
-                    <li>
-                        <a href="<?php echo base_url('peserta'); ?>">
-                           <i class="material-icons">dns</i>
-                            <span>Peserta</span>
-                        </a>
-                    </li> 
+                    </li>  
                     <li>
                         <a href="<?php echo base_url('instansi'); ?>">
                            <i class="material-icons">dns</i>
@@ -213,50 +205,7 @@
                            <i class="material-icons">dns</i>
                             <span>Kategori Training</span>
                         </a>
-                    </li> 
-                  
-                    <!-- <li>
-                        <a href="<?php echo base_url('barang'); ?>">
-                           <i class="material-icons">dns</i>
-                            <span>Barang</span>
-                        </a>
-                    </li> 
-                    <li>
-                        <a href="<?php echo base_url('kategori_barang'); ?>">
-                           <i class="material-icons">dns</i>
-                            <span>Kategori Barang</span>
-                        </a>
-                    </li> 
-                    <li>
-                        <a href="<?php echo base_url('sub_kategori_barang'); ?>">
-                           <i class="material-icons">dns</i>
-                            <span>Sub Kategori Barang</span>
-                        </a>
-                    </li> 
-                    <li>
-                        <a href="<?php echo base_url('instansi'); ?>">
-                           <i class="material-icons">dns</i>
-                            <span>Instansi</span>
-                        </a>
-                    </li> 
-                    <li>
-                        <a href="<?php echo base_url('kategori_instansi'); ?>">
-                           <i class="material-icons">dns</i>
-                            <span>Kategori Instansi</span>
-                        </a>
-                    </li> 
-                    <li>
-                        <a href="<?php echo base_url('pegawai'); ?>">
-                           <i class="material-icons">dns</i>
-                            <span>Pegawai</span>
-                        </a>
-                    </li> 
-                    <li>
-                        <a href="<?php echo base_url('jabatan'); ?>">
-                           <i class="material-icons">dns</i>
-                            <span>Jabatan</span>
-                        </a>
-                    </li>  -->
+                    </li>  
                     <li>
                         <a href="<?php echo base_url('user'); ?>">
                            <i class="material-icons">dns</i>
@@ -281,32 +230,79 @@
                                 </a>
                             </li>  
                         </ul>
-                    </li>
+                    </li> 
+                </ul>
 
+            <?php 
+            }else if($this->session->userdata('level') == 2){
+            ?>
 
-                    <!-- <li>
+                <ul class="list">
+                    <li>
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">dns</i>
-                            <span>Report</span>
+                            <span>Transaksi</span>
                         </a>
                         <ul class="ml-menu"> 
                             <li>
-                                <a href="<?php echo base_url('report_out'); ?>">
+                                <a href="<?php echo base_url('work_order'); ?>">
                                 <i class="material-icons">dns</i>
-                                    <span>Pengeluaran Barang</span>
+                                    <span>Work Order</span>
                                 </a>
-                            </li>
-                            <li>
-                                <a href="<?php echo base_url('report'); ?>">
-                                <i class="material-icons">dns</i>
-                                    <span>Laporan Stock Realtime</span>
-                                </a>
-                            </li>   
+                            </li>  
                         </ul>
-                    </li> -->
-                     
-                    
+                    </li> 
                 </ul>
+
+            <?php 
+            }else if($this->session->userdata('level') == 3 || $this->session->userdata('level') == 4){
+            ?>
+                <ul class="list">
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">dns</i>
+                            <span>Transaksi</span>
+                        </a>
+                        <ul class="ml-menu"> 
+                            <li>
+                                <a href="<?php echo base_url('work_order'); ?>">
+                                <i class="material-icons">dns</i>
+                                    <span>Work Order</span>
+                                </a>
+                            </li>  
+                        </ul>
+                    </li> 
+                </ul>
+            <?php 
+            }else if($this->session->userdata('level') == 5 || $this->session->userdata('level') == 6){
+            ?>
+                <ul class="list">
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">dns</i>
+                            <span>Transaksi</span>
+                        </a>
+                        <ul class="ml-menu"> 
+                            <li>
+                                <a href="<?php echo base_url('approval_work_order'); ?>">
+                                <i class="material-icons">dns</i>
+                                    <span>Approval Work Order</span>
+                                </a>
+                            </li>  
+                            <li>
+                                <a href="<?php echo base_url('history_work_order'); ?>">
+                                <i class="material-icons">dns</i>
+                                    <span>History Work Order</span>
+                                </a>
+                            </li>  
+                            
+                        </ul>
+                    </li> 
+                </ul>
+            <?php 
+            }
+            ?>
+                
 				<!--list menu-->
 			    
             </div>
@@ -327,18 +323,17 @@
              
                     <div class="demo-settings">
                         <p> Selamat Datang  <?php echo $this->session->userdata('username') . " !"; ?> </p>
-                  
- 
+                   
                         <ul class="demo-choose-skin">
                        
-                         <a href="<?php echo base_url('login/logout'); ?>">
-                        <li>
-                          
-                            <i class="material-icons">power_settings_new</i>
-                            <span align="center">Keluar</span>
-                         
-                        </li>
-                          </a>
+                            <a href="<?php echo base_url('login/logout'); ?>">
+                                <li>
+                                
+                                    <i class="material-icons">power_settings_new</i>
+                                    <span align="center">Keluar</span>
+                                
+                                </li>
+                            </a>
                        
                         </ul>
                     </div>

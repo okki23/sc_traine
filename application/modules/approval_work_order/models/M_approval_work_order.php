@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class M_work_order extends Parent_Model { 
+class M_approval_work_order extends Parent_Model { 
     
     var $nama_tabel = 't_work_order';
-    var $daftar_field = array('id','id_sales','id_trainer','judul_training','durasi','id_kategori_training','id_instansi','jml_peserta','lokasi_pelaksanaan','tgl_pelaksanaan','tanggal_sertifikat','keterangan','is_approve_sales','is_approve_education','is_approve_sales_lead','id_materi','total_jampel','token','id_room','status','no_wo','created_at');
+    var $daftar_field = array('id','id_sales','id_trainer','judul_training','durasi','id_kategori_training','id_instansi','jml_peserta','lokasi_pelaksanaan','tanggal_start','tanggal_end','tanggal_sertifikat','keterangan','is_approve_sales','is_approve_education','is_approve_sales_lead','id_materi','total_jampel','token','id_room','status','no_wo','created_at');
     var $primary_key = 'id'; 
   
 	  
@@ -20,7 +20,10 @@ class M_work_order extends Parent_Model {
  }
   
 
-  public function fetch_work_order(){
+  public function fetch_approval_work_order(){
+
+       $level = $this->session->userdata('level');
+
        $sql = "select a.*,b.nama_perusahaan,c.nama as namatrainer,d.nama as namasales,
        nama_materi,f.kategori_training,g.room from t_work_order a
        left join m_instansi b on b.id = a.id_instansi
@@ -40,24 +43,29 @@ class M_work_order extends Parent_Model {
                 $sub_array[] = $row->judul_training;  
                 $sub_array[] = $row->kategori_training;   
                 $sub_array[] = $row->namatrainer;   
-                $sub_array[] = $row->tgl_pelaksanaan;
-                $sub_array[] = $row->tgl_sertifikat;
-                $sub_array[] = '<a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="StatusWO('.$row->id.');" > <i class="material-icons">aspect_ratio</i> Status WO </a>';
+                $sub_array[] = $row->tanggal_start.' s/d '.$row->tanggal_end; 
+                $sub_array[] = $row->namasales;
+                $sub_array[] = $row->created_at;
+                // $sub_array[] = status_wo($row->status);  
 
-                //auth for admin and sales wo
-                if($this->session->userdata('level') == 1 ||$this->session->userdata('level') == 2){
+               
+
+                //sales
+                if($this->session->userdata('level') == 5){
                     $sub_array[] = '
                     <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="Show_Peserta('.$row->id.');" > <i class="material-icons">person</i> Peserta </a> 
-                    &nbsp; <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="Show_Detail('.$row->id.');" > <i class="material-icons">aspect_ratio</i> Detail </a> 
-                    &nbsp; <a href="javascript:void(0)" class="btn btn-warning btn-xs waves-effect" id="edit" onclick="Ubah_Data('.$row->id.');" > <i class="material-icons">create</i> Ubah </a> 
-                    &nbsp; <a href="javascript:void(0)" id="delete" class="btn btn-danger btn-xs waves-effect" onclick="Hapus_Data('.$row->id.');" > <i class="material-icons">delete</i> Hapus </a>';  
-                }else{
-
+                    &nbsp; <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="Show_Detail('.$row->id.');" > <i class="material-icons">aspect_ratio</i> Detail </a>
+                    &nbsp; <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="Approve('.$row->id.');" > <i class="material-icons">check_circle</i> Approve Sales Lead </a>';  
+               
+                    //edu
+                }else{ 
                     $sub_array[] = '
                     <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="Show_Peserta('.$row->id.');" > <i class="material-icons">person</i> Peserta </a> 
-                    &nbsp; <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="Show_Detail('.$row->id.');" > <i class="material-icons">aspect_ratio</i> Detail </a>';  
-                    
+                    &nbsp; <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="Show_Detail('.$row->id.');" > <i class="material-icons">aspect_ratio</i> Detail </a>
+                    &nbsp; <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="Approve('.$row->id.');" > <i class="material-icons">check_circle</i> Approve Edu Lead </a>';  
                 }
+                 
+             
 		   
                     $sub_array[] = $row->id;
                     $data[] = $sub_array;  

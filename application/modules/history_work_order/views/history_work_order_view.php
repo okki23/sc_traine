@@ -1,4 +1,4 @@
-f 
+ 
     <section class="content">
         <div class="container-fluid">
             <div class="block-header">
@@ -10,7 +10,7 @@ f
                     <div class="card">
                         <div class="header">
                             <h2>
-                               Work Order
+                              History Work Order
                             </h2>
                             <br>
                             <?php 
@@ -32,8 +32,8 @@ f
 											<th style="width:10%;">Nama Pelatihan</th>
                                             <th style="width:5%;">Kategori Pelatihan</th>  
 											<th style="width:5%;">Trainer</th>  
-                                            <th style="width:5%;">Tanggal Pelaksanaan</th>  
-                                            <th style="width:5%;">Tanggal Sertifikat</th> 
+                                            <th style="width:5%;">Start Date</th>  
+                                            <th style="width:5%;">End Date</th> 
                                             <th style="width:5%;">Status</th>   
 											<th style="width:15%;">Opsi</th> 
 										</tr>
@@ -128,7 +128,18 @@ f
                                                 <span class="input-group-addon">
                                                     <button type="button" onclick="PilihTrainer();" class="btn btn-primary"> Pilih Trainer ... </button>
                                                 </span>
-                                    </div>  
+                                    </div> 
+                                    <!-- <div class="input-group">
+                                                <div class="form-line">
+                                                    <label for="">Materi</label>
+                                                    <input type="text" name="nama_materi" id="nama_materi" class="form-control" readonly="readonly" >
+                                                    <input type="hidden" name="id_materi" id="id_materi" required>
+                                                    
+                                                </div>
+                                                <span class="input-group-addon">
+                                                    <button type="button" onclick="PilihMateri();" class="btn btn-primary"> Pilih Materi ... </button>
+                                                </span>
+                                    </div>  -->
 
                                     <div class="input-group">
                                                 <div class="form-line">
@@ -156,17 +167,22 @@ f
                                     </div> 
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="">Tanggal Pelaksanaan</label>
-                                            <input type="text" name="tgl_pelaksanaan" id="tgl_pelaksanaan" class="datepicker2 form-control" placeholder="Tanggal Pelaksanaan" />
+                                            <label for="">Tanggal Dimulai</label>
+                                            <input type="text" name="tanggal_start" id="tanggal_start" class="datepicker form-control" placeholder="Tanggal Mulai" />
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="">Tanggal Sertifikat</label>
-                                            <input type="text" name="tgl_sertifikat" id="tgl_sertifikat" class="datepicker2 form-control" placeholder="Tanggal Sertifikat" />
+                                            <label for="">Tanggal Berakhir</label>
+                                            <input type="text" name="tanggal_end" id="tanggal_end" class="datepicker form-control" placeholder="Tanggal Selesai" />
                                         </div>
                                     </div>
-                                   
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="">Tanggal Serfitikat</label>
+                                            <input type="text" name="tanggal_sertifikat" id="tanggal_sertifikat" class="datepicker form-control" placeholder="Tanggal Sertifikat" />
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="">Keterangan</label>
@@ -368,7 +384,7 @@ f
     </div>
 
 	
-	<!-- detail data work_order -->
+	<!-- detail data history_work_order -->
 	<div class="modal fade" id="DetailModal" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
@@ -433,15 +449,15 @@ f
 							</tr> 
 
                             <tr>
-								<td style="font-weight:bold;"> Tanggal Pelaksanaan  </td> 
+								<td style="font-weight:bold;"> Tanggal Mulai  </td> 
 								<td> : </td>
-								<td> <p id="tglpelaksanaandtl"> </p> </td> 
+								<td> <p id="tglstartdtl"> </p> </td> 
 							</tr>
                             
                             <tr>
-								<td style="font-weight:bold;"> Tanggal Sertifikat  </td> 
+								<td style="font-weight:bold;"> Tanggal Selesai  </td> 
 								<td> : </td>
-								<td> <p id="tglsertifikatdtl"> </p> </td> 
+								<td> <p id="tglenddtl"> </p> </td> 
 							</tr>
 
                             <tr>
@@ -449,7 +465,13 @@ f
 								<td> : </td>
 								<td> <p id="roomdtl"> </p> </td> 
 							</tr> 
- 
+
+							<tr>
+								<td colspan="6" align="center">  
+								<img src="" class="img responsive" style="width:50%; height: 50%;" id="foto_dtl">
+								</td>
+							</tr>
+						 
 							 <div class="modal-footer">
 							  <button type="button" class="btn btn-danger" data-dismiss="modal"> X Tutup </button>
 							 </div>
@@ -496,59 +518,15 @@ f
                 </div>
     </div>
 
-    
-    <!-- detail status pengajuan -->
-	<div class="modal fade" id="StatusModal" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Status Work Order </h4>
-                        </div>
-                        <div class="modal-body">
-                             
-                                <table class="table table-responsive">
-                                    <tr>
-                                        <td style="font-weight:bold;"> Status </td>
-                                        <td> : </td>
-                                        <td> <p id="statusdtl"> </p> </td>
-                                    </tr>
-                                    
-                                    <tr>   
-                                        <td style="font-weight:bold;"> Approved Sales Lead </td>
-                                        <td> : </td>
-                                        <td> <p id="approvedsalesdtl"> </p> </td>  
-                                    </tr>
-                                    
-                                    <tr>	
-                                        <td style="font-weight:bold;"> Approved Education Lead</td>
-                                        <td> : </td>
-                                        <td> <p id="approvededudtl"> </p> </td> 
-                                    </tr>
-                                      
-                                
-                                    <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal"> X Tutup </button>
-                                    </div>
-                                </table> 
-                       </div>
-                     
-                    </div>
-                </div>
-    </div>
-			
-			
  
    <script type="text/javascript">
 
-    function StatusWO(id){
-        $("#StatusModal").modal({backdrop: 'static', keyboard: false,show:true}); 
-    }
+    $("#approve").prop("disabled",true);
     function ClosePeserta(){ 
-        $('#daftar_peserta').DataTable().clear();
+         $('#daftar_peserta').DataTable().clear();
         $('#daftar_peserta').DataTable().destroy();
         $("#PesertaModal").modal('hide');
     }
-
     $("#btna").on("click",function(){
         $("#status").val('1');
         $(this).attr('class','btn btn-primary');
@@ -588,7 +566,7 @@ f
     function Show_Peserta(id){ 
         $("#PesertaModal").modal({backdrop: 'static', keyboard: false,show:true}); 
         $('#daftar_peserta').DataTable( {
-            "ajax": "<?php echo base_url('work_order/fetch_audience/'); ?>"+id
+            "ajax": "<?php echo base_url('history_work_order/fetch_audience/'); ?>"+id
         });
         // $('#daftar_peserta').DataTable().clear();
         // $('#daftar_peserta').DataTable().destroy();
@@ -697,7 +675,7 @@ f
 	 function Show_Detail(id){ 
 		$("#DetailModal").modal({backdrop: 'static', keyboard: false,show:true});
 		$.ajax({
-			 url:"<?php echo base_url(); ?>work_order/get_data_edit/"+id,
+			 url:"<?php echo base_url(); ?>history_work_order/get_data_edit/"+id,
 			 type:"GET",
 			 dataType:"JSON", 
 			 success:function(result){  
@@ -708,10 +686,9 @@ f
                  $("#salesdtl").html(result.namasales);  
                  $("#tokendtl").html(result.token);   
                  $("#juduldtl").html(result.judul_training);   
-                 
                  $("#durasidtl").html(result.durasi);
-                 $("#tglpelaksanaandtl").html(result.tgl_pelaksanaan);
-                 $("#tglsertifikatdtl").html(result.tgl_sertifikat);   
+                 $("#tglstartdtl").html(result.tanggal_start);
+                 $("#tglenddtl").html(result.tanggal_end);   
                  $("#trainerdtl").html(result.namatrainer);  
                  $("#roomdtl").html(result.room);  
                  $("#kategoridtl").html(result.kategori_training);    
@@ -729,7 +706,7 @@ f
 		$("#defaultModal").modal('show');
  
 		$.ajax({
-			 url:"<?php echo base_url(); ?>work_order/get_data_edit/"+id,
+			 url:"<?php echo base_url(); ?>history_work_order/get_data_edit/"+id,
 			 type:"GET",
 			 dataType:"JSON", 
 			 success:function(result){ 
@@ -805,7 +782,7 @@ f
         {
         // ajax delete data to database
         $.ajax({
-            url : "<?php echo base_url('work_order/hapus_data')?>/"+id,
+            url : "<?php echo base_url('history_work_order/hapus_data')?>/"+id,
             type: "GET",
             dataType: "JSON",
             success: function(data)
@@ -847,7 +824,7 @@ f
         console.log(formData);
            
             $.ajax({
-             url:"<?php echo base_url(); ?>work_order/simpan_data",
+             url:"<?php echo base_url(); ?>history_work_order/simpan_data",
              type:"POST",
              data:formData, 
              contentType:false,  
@@ -878,14 +855,6 @@ f
         time: false
      });
       
-
-     $(function() {
-        $('.datepicker2').daterangepicker({
-            opens: 'left'
-            }, function(start, end, label) {
-            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-        });
-    });
       
        $(document).ready(function() {
 		   
@@ -893,7 +862,7 @@ f
 			$("#defaultModal").modal({backdrop: 'static', keyboard: false,show:true});
             $("#method").val('Add');
             $("#defaultModalLabel").html("Form Tambah Data");
-            $.get("<?php echo base_url('work_order/header_wo'); ?>",function(result){
+            $.get("<?php echo base_url('history_work_order/header_wo'); ?>",function(result){
                 // console.log(result);
                 var parsing = JSON.parse(result);
                 $("#no_wo").val(parsing.no_wo);
@@ -910,12 +879,12 @@ f
 		});
 		
 		$('#example').DataTable( {
-			"ajax": "<?php echo base_url(); ?>work_order/fetch_work_order",
+			"ajax": "<?php echo base_url(); ?>history_work_order/fetch_history_work_order",
             'rowsGroup': [1] 
 		});
 	 
 	    $('#daftar_sales').DataTable( {
-            "ajax": "<?php echo base_url(); ?>work_order/fetch_kategori" 
+            "ajax": "<?php echo base_url(); ?>history_work_order/fetch_kategori" 
         });
 
 
