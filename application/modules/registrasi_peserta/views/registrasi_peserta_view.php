@@ -154,12 +154,22 @@
                            <h2>
                               Form Register Peserta
                            </h2>
-                           <br>
-                           
+                           <br> 
 
                        </div>
                        <div class="body">
                                
+                    <div id="successpage">
+                    <div class="jumbotron jumbotron-fluid">
+                        <div class="container">
+                            <h1 class="display-2"> <i class="material-icons md-48">verified_user</i> Sukses!</h1>
+                            <p class="lead">Anda sudah terdaftar !</p>
+                        </div>
+                        </div>
+                    </div>
+                    <div id="formregis">
+
+                 
                        <div class="modal-body">
                              <form method="post" id="user_form" enctype="multipart/form-data">   
                                 <input type="hidden" name="id" id="id">  
@@ -169,6 +179,7 @@
                                            <input type="text" name="nama" id="nama" class="form-control"/>
                                        </div>
                                    </div>
+                                    <!--
                                    <div class="form-group">
                                        <div class="form-line">
                                         <label for=""> Tempat Lahir</label>
@@ -186,7 +197,7 @@
                                         <label for=""> Alamat</label>
                                            <input type="text" name="alamat" id="alamat" class="form-control"/>
                                        </div>
-                                   </div>
+                                   </div> -->
                                    <div class="form-group">
                                        <div class="form-line">
                                         <label for=""> Telp</label>
@@ -199,7 +210,7 @@
                                            <input type="text" name="email" id="email" class="form-control"/>
                                        </div>
                                    </div>
-                                  
+<!--                                   
                                    <div class="input-group">
                                                 <div class="form-line">
                                                     <label for="">Instansi</label>
@@ -210,7 +221,7 @@
                                                 <span class="input-group-addon">
                                                     <button type="button" onclick="PilihInstansi();" class="btn btn-primary"> Pilih Instansi ... </button>
                                                 </span>
-                                    </div> 
+                                    </div>  -->
                                     <div class="input-group">
                                                 <div class="form-line">
                                                     <label for="">Token</label>
@@ -228,16 +239,17 @@
                             </form>
                       </div>
                        </div>
+                       </div>
                    </div>
                </div>
            </div> 
        </div>  
 
 
-       
+    
     <!-- modal cari instansi -->
     <div class="modal fade" id="PilihInstansiModal" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title" > Pilih Instansi </h4>
@@ -251,10 +263,8 @@
                                  <table width="100%" class="table table-bordered table-striped table-hover " id="daftar_instansi" >
   
                                     <thead>
-                                        <tr> 
-                                   
-                                            <th style="width:95%;">Room</th>
-                                             
+                                        <tr>  
+                                            <th style="width:95%;">Nama Instansi</th> 
                                         </tr>
                                     </thead> 
                                     <tbody id="daftar_instansix">
@@ -264,7 +274,7 @@
                        </div>
                      
                     </div>
-                </div>
+            </div> 
     </div>
 
     
@@ -343,6 +353,7 @@
 
      <script type="text/javascript"> 
         $(document).ready(function(){
+            $("#successpage").hide();
             $("#savebtn").prop("disabled",true);
         });
         function CheckToken(){
@@ -428,6 +439,8 @@
                         }).done(function(data) {
                                 swal("Data Disimpan!", "Data sudah berhasil masuk ke database", "success"); 
                                 $(':input').val('');  
+                                $("#successpage").show();
+                                $("#formregis").hide();
                         }); 
                     }else{
                         swal("Lanjut", "Penginputan Di Lanjutkan", "success");

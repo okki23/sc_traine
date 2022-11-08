@@ -28,7 +28,7 @@ f
                                             <th style="width:5%;">Start Date</th>  
                                             <th style="width:5%;">End Date</th> 
                                             <th style="width:5%;">Status</th>   
-											<th style="width:10%;">Opsi</th> 
+											<th style="width:15%;">Opsi</th> 
 										</tr>
 									</thead> 
 								</table> 
@@ -93,7 +93,7 @@ f
                                                 <div class="form-line">
                                                     <label for="">Kategori Training</label>
                                                     <input type="text" name="kategori_training" id="kategori_training" class="form-control" readonly="readonly" >
-                                                    <input type="text" name="id_kategori_training" id="id_kategori_training" required>
+                                                    <input type="hidden" name="id_kategori_training" id="id_kategori_training" required>
                                                     
                                                 </div>
                                                 <span class="input-group-addon">
@@ -104,7 +104,7 @@ f
                                                 <div class="form-line">
                                                     <label for="">Instansi</label>
                                                     <input type="text" name="nama_instansi" id="nama_instansi" class="form-control" readonly="readonly" >
-                                                    <input type="text" name="id_instansi" id="id_instansi" required>
+                                                    <input type="hidden" name="id_instansi" id="id_instansi" required>
                                                     
                                                 </div>
                                                 <span class="input-group-addon">
@@ -115,30 +115,30 @@ f
                                                 <div class="form-line">
                                                     <label for="">Trainer</label>
                                                     <input type="text" name="nama_trainer" id="nama_trainer" class="form-control" readonly="readonly" >
-                                                    <input type="text" name="id_trainer" id="id_trainer" required>
+                                                    <input type="hidden" name="id_trainer" id="id_trainer" required>
                                                     
                                                 </div>
                                                 <span class="input-group-addon">
                                                     <button type="button" onclick="PilihTrainer();" class="btn btn-primary"> Pilih Trainer ... </button>
                                                 </span>
                                     </div> 
-                                    <div class="input-group">
+                                    <!-- <div class="input-group">
                                                 <div class="form-line">
                                                     <label for="">Materi</label>
                                                     <input type="text" name="nama_materi" id="nama_materi" class="form-control" readonly="readonly" >
-                                                    <input type="text" name="id_materi" id="id_materi" required>
+                                                    <input type="hidden" name="id_materi" id="id_materi" required>
                                                     
                                                 </div>
                                                 <span class="input-group-addon">
                                                     <button type="button" onclick="PilihMateri();" class="btn btn-primary"> Pilih Materi ... </button>
                                                 </span>
-                                    </div> 
+                                    </div>  -->
 
                                     <div class="input-group">
                                                 <div class="form-line">
                                                     <label for="">Room</label>
                                                     <input type="text" name="nama_room" id="nama_room" class="form-control" readonly="readonly" >
-                                                    <input type="text" name="id_room" id="id_room" required>
+                                                    <input type="hidden" name="id_room" id="id_room" required>
                                                     
                                                 </div>
                                                 <span class="input-group-addon">
@@ -252,7 +252,7 @@ f
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" > Pilih Kategori Training </h4>
+                            <h4 class="modal-title" > Pilih Instansi </h4>
                         </div>
                         <div class="modal-body">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">X Tutup</button>
@@ -406,9 +406,59 @@ f
 							</tr>
 							 
 							<tr>
-								<td style="font-weight:bold;"> Foto  </td> 
-								<td colspan="4">  : </td> 
+								<td style="font-weight:bold;"> Token  </td> 
+								<td> : </td>
+								<td> <p id="tokendtl"> </p> </td> 
 							</tr> 
+
+                            <tr>
+								<td style="font-weight:bold;"> Judul Training  </td> 
+								<td> : </td>
+								<td> <p id="juduldtl"> </p> </td> 
+							</tr> 
+
+                            <tr>
+								<td style="font-weight:bold;"> Kategori Training  </td> 
+								<td> : </td>
+								<td> <p id="kategoridtl"> </p> </td> 
+							</tr> 
+
+                            <tr>
+								<td style="font-weight:bold;"> Instansi  </td> 
+								<td> : </td>
+								<td> <p id="instansidtl"> </p> </td> 
+							</tr> 
+
+                            <tr>
+								<td style="font-weight:bold;"> Trainer  </td> 
+								<td> : </td>
+								<td> <p id="trainerdtl"> </p> </td> 
+							</tr> 
+
+                            <tr>
+								<td style="font-weight:bold;"> Durasi  </td> 
+								<td> : </td>
+								<td> <p id="durasidtl"> </p> </td> 
+							</tr> 
+
+                            <tr>
+								<td style="font-weight:bold;"> Tanggal Mulai  </td> 
+								<td> : </td>
+								<td> <p id="tglstartdtl"> </p> </td> 
+							</tr>
+                            
+                            <tr>
+								<td style="font-weight:bold;"> Tanggal Selesai  </td> 
+								<td> : </td>
+								<td> <p id="tglenddtl"> </p> </td> 
+							</tr>
+
+                            <tr>
+								<td style="font-weight:bold;"> Room  </td> 
+								<td> : </td>
+								<td> <p id="roomdtl"> </p> </td> 
+							</tr> 
+
 							<tr>
 								<td colspan="6" align="center">  
 								<img src="" class="img responsive" style="width:50%; height: 50%;" id="foto_dtl">
@@ -577,7 +627,15 @@ f
                  $("#nowodtl").html(result.no_wo);
                  $("#tglwodtl").html(result.created_at); 
                  $("#salesdtl").html(result.namasales);  
-
+                 $("#tokendtl").html(result.token);   
+                 $("#juduldtl").html(result.judul_training);   
+                 $("#durasidtl").html(result.durasi);
+                 $("#tglstartdtl").html(result.tanggal_start);
+                 $("#tglenddtl").html(result.tanggal_end);   
+                 $("#trainerdtl").html(result.namatrainer);  
+                 $("#roomdtl").html(result.room);  
+                 $("#kategoridtl").html(result.kategori_training);    
+                 $("#instansidtl").html(result.nama_perusahaan);  
                  
 				 
 			 }
