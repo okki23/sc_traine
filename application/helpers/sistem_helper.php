@@ -11,6 +11,7 @@ if(!function_exists('level_help')){
 		return $res;
     }
 }
+
 if(!function_exists('bagi_nama_div')){
     function bagi_nama_div($string){
     $total = str_word_count($string);
@@ -25,6 +26,7 @@ if(!function_exists('bagi_nama_div')){
     }
 }
 
+ 
 if(!function_exists('get_user_account')){
     function get_user_account($userid){
         $CI =& get_instance();

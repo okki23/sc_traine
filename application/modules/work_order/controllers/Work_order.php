@@ -5,8 +5,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Work_order extends Parent_Controller { 
 
     var $nama_tabel = 't_work_order';
-    var $daftar_field = array('id','id_sales','id_trainer','judul_training','durasi','id_kategori_training','id_instansi','jml_peserta','lokasi_pelaksanaan','tgl_pelaksanaan','tanggal_sertifikat','keterangan','is_approve_sales','is_approve_education','is_approve_sales_lead','id_materi','total_jampel','token','id_room','status','no_wo','created_at');
+    var $daftar_field = array('id','id_sales','id_trainer','judul_training','durasi','id_kategori_training','id_instansi','jml_peserta','lokasi_pelaksanaan','tgl_pelaksanaan','tgl_sertifikat','keterangan','is_approve_education','is_approve_sales_lead','id_materi','total_jampel','token','id_room','status','no_wo','created_at','approve_edu_date','approve_sales_date');
     var $primary_key = 'id'; 
+	var $source = 'FT';//FT - SC - FI
 
  	public function __construct(){
  		parent::__construct();
@@ -29,10 +30,10 @@ class Work_order extends Parent_Controller {
 	}
 
 	public function header_wo(){
-		$params = date('Ymd');
+		// $params = date('Ymd');
 		$now = date('Y-m-d H:i:s');
 		$whoami = get_user_account($this->session->userdata('userid'));
-		$last_id = $this->transaksi_id($params); 
+		$last_id = $this->get_max(); 
 		$token = rand();
 
 		$parse = array('no_wo'=>$last_id,'userid'=>$this->session->userdata('userid'),'useraccount'=>$whoami,'date'=>$now,'token'=>$token);
@@ -69,6 +70,26 @@ class Work_order extends Parent_Controller {
 	 
 	}
  
+	public function get_max(){
+		  
+		$data = $this->m_work_order->get_no(); 
+
+		$list =  $data[0]['result']; 
+ 
+		if(empty($data[0]['result']) || $data[0]['result'] == '' || $data[0]['result'] == NULL){
+			$list = 001;
+		}elseif(date('d') == 01){
+			$list = 001;
+		}else{
+			$list++;
+		}
+		$kodewo = sprintf("%03s", $list).'/WO-'.$this->source.'/'.date('m').'/'.date('Y');
+		
+		return $kodewo;
+		 
+	}
+
+
 	public function transaksi_id($param = '') {
         $data = $this->m_work_order->get_no();
         $lastid = $data->row();
@@ -109,7 +130,27 @@ class Work_order extends Parent_Controller {
        echo json_encode($getdata);   
   	} 
 	
-   
+    public function get_status_show(){
+		$id = $this->uri->segment(3); 
+		$data = $this->db->where('id',$id)->get($this->nama_tabel)->row();
+
+		$appr_sales = '';
+		$appr_edu = '';
+
+		if($data->is_approve_sales_lead == '' || $data->is_approve_sales_lead == NULL){
+			$appr_sales = ' - ';
+		}else{
+			$appr_sales = 'Was Aproved by '.get_user_account($data->is_approve_sales_lead).' on '.$data->approve_sales_date;
+		}
+
+		if($data->is_approve_education== '' || $data->is_approve_education == NULL){
+			$appr_edu = ' - ';
+		}else{
+			$appr_edu = 'Was Aproved by '.get_user_account($data->is_approve_education).' on '.$data->approve_edu_date;
+		}
+		$result = array('status'=>status_wo($data->status),'approve_sales_head'=>$appr_sales,'approve_edu_head'=>$appr_edu);
+		echo json_encode($result,true);
+	}
 	public function get_data_edit(){
 		$id = $this->uri->segment(3); 
 		$sql = "select a.*,b.nama_perusahaan,c.nama as namatrainer,d.nama as namasales,

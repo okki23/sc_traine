@@ -43,7 +43,7 @@ class M_approval_work_order extends Parent_Model {
                 $sub_array[] = $row->judul_training;  
                 $sub_array[] = $row->kategori_training;   
                 $sub_array[] = $row->namatrainer;   
-                $sub_array[] = $row->tanggal_start.' s/d '.$row->tanggal_end; 
+                $sub_array[] = $row->tgl_pelaksanaan; 
                 $sub_array[] = $row->namasales;
                 $sub_array[] = $row->created_at;
                 // $sub_array[] = status_wo($row->status);  
@@ -52,17 +52,32 @@ class M_approval_work_order extends Parent_Model {
 
                 //sales
                 if($this->session->userdata('level') == 5){
-                    $sub_array[] = '
-                    <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="Show_Peserta('.$row->id.');" > <i class="material-icons">person</i> Peserta </a> 
-                    &nbsp; <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="Show_Detail('.$row->id.');" > <i class="material-icons">aspect_ratio</i> Detail </a>
-                    &nbsp; <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="Approve('.$row->id.');" > <i class="material-icons">check_circle</i> Approve Sales Lead </a>';  
+                    if($row->is_approve_sales_lead == '' || $row->is_approve_sales_lead == NULL){
+                        $sub_array[] = '
+                        <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="Show_Peserta('.$row->id.');" > <i class="material-icons">person</i> Peserta </a> 
+                        &nbsp; <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="Show_Detail('.$row->id.');" > <i class="material-icons">aspect_ratio</i> Detail </a>
+                        &nbsp; <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="ApproveWO('.$row->id.');" > <i class="material-icons">check_circle</i> Approve Sales Lead </a>';  
+                    }else{
+                        $sub_array[] = '
+                        <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="Show_Peserta('.$row->id.');" > <i class="material-icons">person</i> Peserta </a> 
+                        &nbsp; <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="Show_Detail('.$row->id.');" > <i class="material-icons">aspect_ratio</i> Detail </a>
+                        &nbsp; <button class="btn btn-primary btn-xs waves-effect" disabled="disabled"> Was Approved by Sales Lead</button>';
+                    }
+                   
                
                     //edu
                 }else{ 
-                    $sub_array[] = '
-                    <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="Show_Peserta('.$row->id.');" > <i class="material-icons">person</i> Peserta </a> 
-                    &nbsp; <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="Show_Detail('.$row->id.');" > <i class="material-icons">aspect_ratio</i> Detail </a>
-                    &nbsp; <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="Approve('.$row->id.');" > <i class="material-icons">check_circle</i> Approve Edu Lead </a>';  
+                    if($row->is_approve_education == '' || $row->is_approve_education == NULL){
+                        $sub_array[] = '
+                        <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="Show_Peserta('.$row->id.');" > <i class="material-icons">person</i> Peserta </a> 
+                        &nbsp; <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="Show_Detail('.$row->id.');" > <i class="material-icons">aspect_ratio</i> Detail </a>
+                        &nbsp; <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="ApproveWO('.$row->id.');" > <i class="material-icons">check_circle</i> Approve Edu Lead </a>';  
+                    }else{
+                        $sub_array[] = '
+                        <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="Show_Peserta('.$row->id.');" > <i class="material-icons">person</i> Peserta </a> 
+                        &nbsp; <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="Show_Detail('.$row->id.');" > <i class="material-icons">aspect_ratio</i> Detail </a>
+                        &nbsp; <button class="btn btn-primary btn-xs waves-effect" disabled="disabled"> Was Approved by EDU Lead</button>';
+                    }
                 }
                  
              

@@ -20,8 +20,7 @@ f
                             <?php 
                                 }
                             ?>
-                           
- 
+                            
                         </div>
                         <div class="body">
                                 
@@ -34,8 +33,8 @@ f
 											<th style="width:5%;">Trainer</th>  
                                             <th style="width:10%;">Pelaksanaan</th>     
                                             <th style="width:5%;">Sales</th>   
-                                            <th style="width:5%;">Pengajuan</th>   
-											<th style="width:15%;">Opsi</th> 
+                                            <th style="width:8%;">Tanggal Pengajuan</th>   
+											<th style="width:16%;">Opsi</th> 
 										</tr>
 									</thead> 
 								</table> 
@@ -44,9 +43,7 @@ f
                     </div>
                 </div>
             </div>
-         
-
-
+          
         </div>
     </section>
 
@@ -187,7 +184,6 @@ f
                                         <div class="form-line">
                                             <label for="">Keterangan</label>
                                             <textarea name="keterangan" id="keterangan" cols="30" rows="10" class="form-control"></textarea>
-                                            <!-- <input type="text" name="keterangan" id="keterangan" class="form-control" placeholder="Keterangan" /> -->
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -520,12 +516,24 @@ f
 			
  
    <script type="text/javascript">
+    
+    function ApproveWO(id){
+        var session_level = '<?php echo $this->session->userdata('level'); ?>';
+        var userid = '<?php echo $this->session->userdata('userid'); ?>';
+     
+        var parsing =  {id:id, session_level:session_level, userid:userid};
+        $.post("<?php echo base_url('approval_work_order/approvewo') ?>",parsing).done(function(data){
+            console.log(data);
+            $('#example').DataTable().ajax.reload(); 
+        });
+    }
 
     function ClosePeserta(){ 
          $('#daftar_peserta').DataTable().clear();
         $('#daftar_peserta').DataTable().destroy();
         $("#PesertaModal").modal('hide');
     }
+
     $("#btna").on("click",function(){
         $("#status").val('1');
         $(this).attr('class','btn btn-primary');
@@ -566,11 +574,7 @@ f
         $("#PesertaModal").modal({backdrop: 'static', keyboard: false,show:true}); 
         $('#daftar_peserta').DataTable( {
             "ajax": "<?php echo base_url('approval_work_order/fetch_audience/'); ?>"+id
-        });
-        // $('#daftar_peserta').DataTable().clear();
-        // $('#daftar_peserta').DataTable().destroy();
-      
-
+        }); 
 	}
 
 	function PilihCatTraining(){
@@ -879,7 +883,7 @@ f
 		
 		$('#example').DataTable( {
 			"ajax": "<?php echo base_url(); ?>approval_work_order/fetch_approval_work_order",
-            'rowsGroup': [1] 
+            'rowsGroup': [1,4] 
 		});
 	 
 	    $('#daftar_sales').DataTable( {

@@ -4,9 +4,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Approval_work_order extends Parent_Controller { 
 
-  var $nama_tabel = 't_work_order';
-  var $daftar_field = array('id','id_sales','id_trainer','judul_training','durasi','id_kategori_training','id_instansi','jml_peserta','lokasi_pelaksanaan','tanggal_start','tanggal_end','tanggal_sertifikat','keterangan','is_approve_sales','is_approve_education','is_approve_sales_lead','id_materi','total_jampel','token','id_room','status','no_wo','created_at');
-  var $primary_key = 'id'; 
+    var $nama_tabel = 't_work_order';
+    var $daftar_field = array('id','id_sales','id_trainer','judul_training','durasi','id_kategori_training','id_instansi','jml_peserta','lokasi_pelaksanaan','tgl_pelaksanaan','tgl_sertifikat','keterangan','is_approve_education','is_approve_sales_lead','id_materi','total_jampel','token','id_room','status','no_wo','created_at','approve_edu_date','approve_sales_date');
+    var $primary_key = 'id'; 
+	var $source = 'FT';//FT - SC - FI
 
  	public function __construct(){
  		parent::__construct();
@@ -26,6 +27,29 @@ class Approval_work_order extends Parent_Controller {
 		$data['konten'] = 'approval_work_order/approval_work_order_view';
 		$this->load->view('template_view',$data);		
    
+	}
+
+	public function approvewo(){
+		$id = $this->input->post('id');
+		$userid = $this->input->post('userid');
+		$session_level = $this->input->post('session_level');
+ 
+		if($session_level == 5){
+			$setdata = array('is_approve_sales_lead'=>$userid,'approve_sales_date'=>date('Y-m-d H:i:s'));
+			$store = $this->db->set($setdata)->where('id',$id)->update($this->nama_tabel);
+		}else{
+			$setdata = array('is_approve_education'=>$userid,'approve_edu_date'=>date('Y-m-d H:i:s'));
+			$store = $this->db->set($setdata)->where('id',$id)->update($this->nama_tabel);
+		}
+
+		 
+		if($store){
+			$result = array("response"=>array('message'=>'success'));
+		}else{
+			$result = array("response"=>array('message'=>'failed'));
+		}
+
+		echo json_encode($result,true);
 	}
 
 	public function header_wo(){

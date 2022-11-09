@@ -32,10 +32,10 @@ f
 											<th style="width:10%;">Nama Pelatihan</th>
                                             <th style="width:5%;">Kategori Pelatihan</th>  
 											<th style="width:5%;">Trainer</th>  
-                                            <th style="width:5%;">Tanggal Pelaksanaan</th>  
-                                            <th style="width:5%;">Tanggal Sertifikat</th> 
+                                            <th style="width:8%;">Tanggal Pelaksanaan</th>  
+                                            <th style="width:8%;">Tanggal Sertifikat</th> 
                                             <th style="width:5%;">Status</th>   
-											<th style="width:15%;">Opsi</th> 
+											<th style="width:20%;">Opsi</th> 
 										</tr>
 									</thead> 
 								</table> 
@@ -508,23 +508,24 @@ f
                              
                                 <table class="table table-responsive">
                                     <tr>
-                                        <td style="font-weight:bold;"> Status </td>
-                                        <td> : </td>
-                                        <td> <p id="statusdtl"> </p> </td>
+                                        <td style="font-weight:bold; width:30%;"> Status </td>
+                                        <td style="width:5%;"> : </td>
+                                        <td style="width:65%;"> <p id="statusdtl"> </p> </td>
                                     </tr>
                                     
                                     <tr>   
-                                        <td style="font-weight:bold;"> Approved Sales Lead </td>
-                                        <td> : </td>
-                                        <td> <p id="approvedsalesdtl"> </p> </td>  
+                                        <td style="font-weight:bold; width:30%;"> Approved Sales Lead </td>
+                                        <td style="width:5%;" > : </td>
+                                        <td style="width:65%;" > <p id="approvedsalesdtl"> </p> </td>  
+                                    </tr>
+
+                                    <tr>   
+                                        <td style="font-weight:bold; width:30%;"> Approved Education Lead </td>
+                                        <td style="width:5%;" > : </td>
+                                        <td style="width:65%;" > <p id="approvededudtl"> </p> </td>  
                                     </tr>
                                     
-                                    <tr>	
-                                        <td style="font-weight:bold;"> Approved Education Lead</td>
-                                        <td> : </td>
-                                        <td> <p id="approvededudtl"> </p> </td> 
-                                    </tr>
-                                      
+                                  
                                 
                                     <div class="modal-footer">
                                     <button type="button" class="btn btn-danger" data-dismiss="modal"> X Tutup </button>
@@ -542,6 +543,17 @@ f
 
     function StatusWO(id){
         $("#StatusModal").modal({backdrop: 'static', keyboard: false,show:true}); 
+
+        $.ajax({
+            url:"<?php echo base_url(); ?>work_order/get_status_show/"+id,
+            type:"GET",
+            success:function(result){
+                var parse = JSON.parse(result);
+                $("#statusdtl").html(parse.status);
+                $("#approvedsalesdtl").html(parse.approve_sales_head);
+                $("#approvededudtl").html(parse.approve_edu_head);  
+            }
+        });
     }
     function ClosePeserta(){ 
         $('#daftar_peserta').DataTable().clear();

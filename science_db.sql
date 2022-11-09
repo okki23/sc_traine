@@ -11,7 +11,7 @@
  Target Server Version : 80030 (8.0.30)
  File Encoding         : 65001
 
- Date: 07/11/2022 02:54:20
+ Date: 09/11/2022 16:12:12
 */
 
 SET NAMES utf8mb4;
@@ -258,7 +258,7 @@ CREATE TABLE `m_peserta`  (
   `telp` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of m_peserta
@@ -266,6 +266,11 @@ CREATE TABLE `m_peserta`  (
 INSERT INTO `m_peserta` VALUES (1, 1, 'Okki Setyawan', 'Jakarta', '2022-11-07', 'Bekasi', '0219874433', 'okkisetyawan@gmail.com');
 INSERT INTO `m_peserta` VALUES (2, 1, 'Joni', 'Bekasi', '2022-11-07', 'Jakarta', '02187234234', 'okkisetyawan@gmail.com');
 INSERT INTO `m_peserta` VALUES (3, 1, 'Okki', 'bekasi', '2022-11-07', 'bekasi', '02128274234', 'okkisetyawan@gmail.com');
+INSERT INTO `m_peserta` VALUES (4, NULL, 'Okki Setyawan', NULL, NULL, NULL, '02138423424', 'okkisetyawan@gmail.com');
+INSERT INTO `m_peserta` VALUES (5, NULL, 'Jojon', NULL, NULL, NULL, '021183123', 'jon@mail.com');
+INSERT INTO `m_peserta` VALUES (6, NULL, 'Joni', NULL, NULL, NULL, '99876123', 'jon@mail.com');
+INSERT INTO `m_peserta` VALUES (7, NULL, 'Yay', NULL, NULL, NULL, '98978342', 'ya@mail.com');
+INSERT INTO `m_peserta` VALUES (8, NULL, 'Okki SSSS', NULL, NULL, NULL, '0218498249', 'okkisetyawan@gmail.com');
 
 -- ----------------------------
 -- Table structure for m_room
@@ -381,9 +386,9 @@ CREATE TABLE `m_user`  (
   `username` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `password` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `id_pegawai` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  `level` int NULL DEFAULT NULL COMMENT '1 administrator\r\n2 sales\r\n3 operator\r\n4 cs\r\n5 pimpinan',
+  `level` int NULL DEFAULT NULL COMMENT '1 administrator\r\n2 sales\r\n3 operator\r\n4 cs\r\n5 sales_lead\r\n6 edu_lead',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of m_user
@@ -391,6 +396,10 @@ CREATE TABLE `m_user`  (
 INSERT INTO `m_user` VALUES (1, 'admin', 'YQ==', '1', 1);
 INSERT INTO `m_user` VALUES (7, 'okki', 'YQ==', '2', 1);
 INSERT INTO `m_user` VALUES (9, 'nia', 'YQ==', '99', 2);
+INSERT INTO `m_user` VALUES (17, 'doni', 'YQ==', '', 3);
+INSERT INTO `m_user` VALUES (18, 'ridwan', 'YQ==', '', 4);
+INSERT INTO `m_user` VALUES (19, 'teguh', 'YQ==', '', 6);
+INSERT INTO `m_user` VALUES (20, 'fahmi', 'YQ==', '', 5);
 
 -- ----------------------------
 -- Table structure for t_pengeluaran
@@ -446,11 +455,9 @@ CREATE TABLE `t_work_order`  (
   `id_instansi` int NULL DEFAULT NULL,
   `jml_peserta` int NULL DEFAULT NULL,
   `lokasi_pelaksanaan` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `tanggal_start` date NULL DEFAULT NULL,
-  `tanggal_end` date NULL DEFAULT NULL,
-  `tanggal_sertifikat` date NULL DEFAULT NULL,
+  `tgl_pelaksanaan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `tgl_sertifikat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `keterangan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
-  `is_approve_sales` int NULL DEFAULT NULL,
   `is_approve_education` int NULL DEFAULT NULL,
   `is_approve_sales_lead` int NULL DEFAULT NULL,
   `id_materi` int NULL DEFAULT NULL,
@@ -458,15 +465,19 @@ CREATE TABLE `t_work_order`  (
   `token` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   `id_room` int NULL DEFAULT NULL,
   `status` int NULL DEFAULT NULL,
-  `no_wo` int NULL DEFAULT NULL,
+  `no_wo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `created_at` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
+  `approve_edu_date` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `approve_sales_date` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_work_order
 -- ----------------------------
-INSERT INTO `t_work_order` VALUES (2, 1, 5, 'Belajar Website Menggunakan PHP dan MYSQL', '2', 5, 1, 2, 'Jakarta', '2022-11-06', '2022-11-07', '2022-11-09', 'sss', NULL, NULL, NULL, 3, NULL, '82172716', 1, 4, 2147483647, '2022-11-06 05:53:00');
+INSERT INTO `t_work_order` VALUES (2, 1, 5, 'Belajar Website Menggunakan PHP dan MYSQL', '2', 5, 1, 2, 'Jakarta', '2020-06-01', '2020-06-02', 'sss', 1, NULL, 3, NULL, '82172716', 1, 1, '001/WO-FT/01/2022', '2022-11-06 05:53:00', NULL, NULL);
+INSERT INTO `t_work_order` VALUES (3, 1, 6, 'Membuat Frontend ReactJS', '2', 2, 1, 5, 'Jakarta', '2020-06-01', '2020-06-02', 'jnkkbasd', 19, 20, NULL, NULL, '1337162583', 1, 1, '002/WO-FT/01/2022', '2022-11-08 03:27:21', '2022-11-09 08:29:49', '2022-11-09 08:30:57');
+INSERT INTO `t_work_order` VALUES (4, 1, 3, 'Pelatihan Excel VBA', '2', 2, 1, 5, 'Bekasi', '11/09/2022 - 11/10/2022', '11/11/2022 - 11/12/2022', 'OKE AMAN', NULL, NULL, NULL, NULL, '1996332791', 1, 1, '003/WO-FT/11/2022', '2022-11-09 05:34:41', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for t_work_order_detail
@@ -477,7 +488,7 @@ CREATE TABLE `t_work_order_detail`  (
   `id_peserta` int NULL DEFAULT NULL,
   `token` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_work_order_detail
@@ -485,5 +496,10 @@ CREATE TABLE `t_work_order_detail`  (
 INSERT INTO `t_work_order_detail` VALUES (1, 1, '13133123');
 INSERT INTO `t_work_order_detail` VALUES (2, 2, '123123');
 INSERT INTO `t_work_order_detail` VALUES (3, 3, '1313123');
+INSERT INTO `t_work_order_detail` VALUES (4, 4, '82172716');
+INSERT INTO `t_work_order_detail` VALUES (5, 5, '82172716');
+INSERT INTO `t_work_order_detail` VALUES (6, 6, '82172716');
+INSERT INTO `t_work_order_detail` VALUES (7, 7, '82172716');
+INSERT INTO `t_work_order_detail` VALUES (8, 8, '1337162583');
 
 SET FOREIGN_KEY_CHECKS = 1;

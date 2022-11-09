@@ -4,8 +4,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class M_work_order extends Parent_Model { 
     
     var $nama_tabel = 't_work_order';
-    var $daftar_field = array('id','id_sales','id_trainer','judul_training','durasi','id_kategori_training','id_instansi','jml_peserta','lokasi_pelaksanaan','tgl_pelaksanaan','tanggal_sertifikat','keterangan','is_approve_sales','is_approve_education','is_approve_sales_lead','id_materi','total_jampel','token','id_room','status','no_wo','created_at');
+    var $daftar_field = array('id','id_sales','id_trainer','judul_training','durasi','id_kategori_training','id_instansi','jml_peserta','lokasi_pelaksanaan','tgl_pelaksanaan','tgl_sertifikat','keterangan','is_approve_education','is_approve_sales_lead','id_materi','total_jampel','token','id_room','status','no_wo','created_at','approve_edu_date','approve_sales_date');
     var $primary_key = 'id'; 
+	var $source = 'FT';//FT - SC - FI
   
 	  
   public function __construct(){
@@ -14,9 +15,11 @@ class M_work_order extends Parent_Model {
   }
 
 
-  public function get_no(){
-      $query = $this->db->query("SELECT SUBSTR(MAX(no_wo),-7) AS id  FROM t_work_order"); 
-      return $query;
+  public function get_no(){ 
+ 
+      $db = $this->db->query('select substr(max(no_wo),1,3) as result from t_work_order')->result_array();
+
+      return $db;
  }
   
 
@@ -47,14 +50,16 @@ class M_work_order extends Parent_Model {
                 //auth for admin and sales wo
                 if($this->session->userdata('level') == 1 ||$this->session->userdata('level') == 2){
                     $sub_array[] = '
-                    <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="Show_Peserta('.$row->id.');" > <i class="material-icons">person</i> Peserta </a> 
+                    <a href="javascript:void(0)" class="btn btn-danger btn-xs waves-effect" onclick="PrintWO('.$row->id.');" > <i class="material-icons">print</i> Cetak WO </a>
+                    &nbsp; <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="Show_Peserta('.$row->id.');" > <i class="material-icons">person</i> Peserta </a> 
                     &nbsp; <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="Show_Detail('.$row->id.');" > <i class="material-icons">aspect_ratio</i> Detail </a> 
                     &nbsp; <a href="javascript:void(0)" class="btn btn-warning btn-xs waves-effect" id="edit" onclick="Ubah_Data('.$row->id.');" > <i class="material-icons">create</i> Ubah </a> 
                     &nbsp; <a href="javascript:void(0)" id="delete" class="btn btn-danger btn-xs waves-effect" onclick="Hapus_Data('.$row->id.');" > <i class="material-icons">delete</i> Hapus </a>';  
                 }else{
 
                     $sub_array[] = '
-                    <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="Show_Peserta('.$row->id.');" > <i class="material-icons">person</i> Peserta </a> 
+                    <a href="javascript:void(0)" class="btn btn-danger btn-xs waves-effect" onclick="PrintWO('.$row->id.');" > <i class="material-icons">print</i> Cetak WO </a>
+                    &nbsp;<a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="Show_Peserta('.$row->id.');" > <i class="material-icons">person</i> Peserta </a> 
                     &nbsp; <a href="javascript:void(0)" class="btn btn-primary btn-xs waves-effect" id="detail" onclick="Show_Detail('.$row->id.');" > <i class="material-icons">aspect_ratio</i> Detail </a>';  
                     
                 }
