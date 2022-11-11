@@ -44,10 +44,8 @@ class M_approval_work_order extends Parent_Model {
                 $sub_array[] = $row->kategori_training;   
                 $sub_array[] = $row->namatrainer;   
                 $sub_array[] = $row->tgl_pelaksanaan; 
-                $sub_array[] = $row->namasales;
-                $sub_array[] = $row->created_at;
-                // $sub_array[] = status_wo($row->status);  
-
+                $sub_array[] = $row->namasales; 
+                $sub_array[] = $row->created_at; 
                
 
                 //sales

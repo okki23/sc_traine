@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Work_order extends Parent_Controller { 
 
     var $nama_tabel = 't_work_order';
-    var $daftar_field = array('id','id_sales','id_trainer','judul_training','durasi','id_kategori_training','id_instansi','jml_peserta','lokasi_pelaksanaan','tgl_pelaksanaan','tgl_sertifikat','keterangan','is_approve_education','is_approve_sales_lead','id_materi','total_jampel','token','id_room','status','no_wo','created_at','approve_edu_date','approve_sales_date');
+    var $daftar_field = array('id','id_sales','id_trainer','judul_training','durasi','id_kategori_training','id_instansi','jml_peserta','lokasi_pelaksanaan','tgl_pelaksanaan','tgl_sertifikat','keterangan','is_approve_education','is_approve_sales_lead','id_materi','total_jampel','token','id_room','status','no_wo','created_at','approve_edu_date','approve_sales_date','qr_sales');
     var $primary_key = 'id'; 
 	var $source = 'FT';//FT - SC - FI
 
@@ -24,6 +24,7 @@ class Work_order extends Parent_Controller {
   
 	public function index(){
 		$data['judul'] = $this->data['judul']; 
+		$data['img'] = $this->db->where('id',3)->get($this->nama_tabel)->row();
 		$data['konten'] = 'work_order/work_order_view';
 		$this->load->view('template_view',$data);		
    
@@ -40,11 +41,7 @@ class Work_order extends Parent_Controller {
 		echo json_encode($parse);  
 	}
  
-
-	public function get_last_id(){
-		$params = date('Ymd');
-		echo $this->transaksi_id($params);  
-	}
+ 
 
 	public function fetch_audience(){
 		$id = $this->uri->segment(3);
@@ -89,46 +86,50 @@ class Work_order extends Parent_Controller {
 		 
 	}
 
-
-	public function transaksi_id($param = '') {
-        $data = $this->m_work_order->get_no();
-        $lastid = $data->row();
-        $idnya = $lastid->id; 
-
-        if($idnya == '') { // bila data kosong
-            $ID = $param . "0000001";
-            //00000001
-        }else {
-            $MaksID = $idnya;
-            $MaksID++;
-            if ($MaksID < 10)
-                $ID = $param . "000000" . $MaksID;
-            else if ($MaksID < 100)
-                $ID = $param . "00000" . $MaksID;
-            else if ($MaksID < 1000)
-                $ID = $param . "0000" . $MaksID;
-            else if ($MaksID < 10000)
-                $ID = $param . "000" . $MaksID;
-            else if ($MaksID < 100000)
-                $ID = $param . "00" . $MaksID;
-            else if ($MaksID < 1000000)
-                $ID = $param . "0" . $MaksID;
-            else
-                $ID = $MaksID;
-        }
-
-        return $ID;
-    }  	
+ 
 
   	public function fetch_work_order(){  
        $getdata = $this->m_work_order->fetch_work_order();
        echo json_encode($getdata);   
   	}  
+ 
+	
+	
+  
+	public function cetak_wo(){
 
-  	public function fetch_cat_work_order(){  
-       $getdata = $this->m_work_order->fetch_cat_work_order();
-       echo json_encode($getdata);   
-  	} 
+		$this->load->library('pdfgenerator');
+
+		$id = $this->uri->segment(3);
+	  
+		$this->data['title_pdf'] = 'Laporan Penjualan Toko Kita';
+		$sql = "select a.*,b.nama_perusahaan,c.nama as namatrainer,
+		d.nama as namasales,e.nama_materi,f.kategori_training,g.room,h.username as salesleadname,i.username as eduleadname
+		 from t_work_order a
+		left join m_instansi b on b.id = a.id_instansi
+		left join m_trainer c on c.id = a.id_trainer
+		left join m_sales d on d.id = a.id_sales
+		left join m_materi e on e.id = a.id_materi
+		left join m_kategori_training f on f.id = a.id_kategori_training 
+		left join m_room g on g.id = a.id_room
+		left join m_user h on h.id = a.is_approve_sales_lead
+		left join m_user i on i.id = a.is_approve_education
+		where a.id = '".$id."' ";
+		$dataparse = $this->db->query($sql)->row();
+		$this->data['result'] = $this->db->query($sql)->row();
+			
+		// filename dari pdf ketika didownload
+		$file_pdf = 'Work Order - '.$dataparse->no_wo;
+		// setting paper
+		$paper = 'A4';
+		//orientasi paper potrait / landscape
+		$orientation = "portrait";
+		
+		$html = $this->load->view('work_order/wo_print',$this->data, true);	    
+		
+		// run dompdf
+		$this->pdfgenerator->generate($html, $file_pdf,$paper,$orientation);
+	}
 	
     public function get_status_show(){
 		$id = $this->uri->segment(3); 
@@ -185,14 +186,14 @@ class Work_order extends Parent_Controller {
     $data_form = $this->m_work_order->array_from_post($this->daftar_field);
 
     $id = isset($data_form['id']) ? $data_form['id'] : NULL; 
+	$qrsales = 'was_approved_by_'.get_user_account($this->session->userdata('userid')).'_on_'.date('Y_m_d_H_i_s');
+	$savesalesqr =  $this->generate_qrcode_approval($qrsales);
  
-
+    $data_form['qr_sales'] = $savesalesqr;
     $simpan_data = $this->m_work_order->simpan_data($data_form,$this->nama_tabel,$this->primary_key,$id);
-    $simpan_work_order = $this->upload_work_order();
-  
  
 	
-		if($simpan_data && $simpan_work_order){
+		if($simpan_data){
 			$result = array("response"=>array('message'=>'success'));
 		}else{
 			$result = array("response"=>array('message'=>'failed'));
@@ -201,15 +202,18 @@ class Work_order extends Parent_Controller {
 		echo json_encode($result,TRUE);
 
 	}
- 
-  function upload_work_order(){  
-    if(isset($_FILES["user_image"])){  
-        $extension = explode('.', $_FILES['user_image']['name']);   
-        $destination = './upload/' . $_FILES['user_image']['name'];  
-        return move_uploaded_file($_FILES['user_image']['tmp_name'], $destination);  
-         
-    }  
-  }  
+
+	function generate_qrcode_approval($message){
+		$this->load->library('ciqrcode');
+		$params['data'] = $message;
+		$params['level'] = 'H';
+		$params['size'] = 10;
+		$params['savename'] = FCPATH.'qrcode/'.$message.".png";
+		$this->ciqrcode->generate($params);
+		return $message.".png";
+
+  }
+  
        
 
 

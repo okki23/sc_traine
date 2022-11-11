@@ -11,7 +11,7 @@
  Target Server Version : 80030 (8.0.30)
  File Encoding         : 65001
 
- Date: 09/11/2022 16:12:12
+ Date: 11/11/2022 14:29:00
 */
 
 SET NAMES utf8mb4;
@@ -469,15 +469,19 @@ CREATE TABLE `t_work_order`  (
   `created_at` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   `approve_edu_date` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `approve_sales_date` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `qr_edu_approve` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `qr_sales_approve` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `qr_sales` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_work_order
 -- ----------------------------
-INSERT INTO `t_work_order` VALUES (2, 1, 5, 'Belajar Website Menggunakan PHP dan MYSQL', '2', 5, 1, 2, 'Jakarta', '2020-06-01', '2020-06-02', 'sss', 1, NULL, 3, NULL, '82172716', 1, 1, '001/WO-FT/01/2022', '2022-11-06 05:53:00', NULL, NULL);
-INSERT INTO `t_work_order` VALUES (3, 1, 6, 'Membuat Frontend ReactJS', '2', 2, 1, 5, 'Jakarta', '2020-06-01', '2020-06-02', 'jnkkbasd', 19, 20, NULL, NULL, '1337162583', 1, 1, '002/WO-FT/01/2022', '2022-11-08 03:27:21', '2022-11-09 08:29:49', '2022-11-09 08:30:57');
-INSERT INTO `t_work_order` VALUES (4, 1, 3, 'Pelatihan Excel VBA', '2', 2, 1, 5, 'Bekasi', '11/09/2022 - 11/10/2022', '11/11/2022 - 11/12/2022', 'OKE AMAN', NULL, NULL, NULL, NULL, '1996332791', 1, 1, '003/WO-FT/11/2022', '2022-11-09 05:34:41', NULL, NULL);
+INSERT INTO `t_work_order` VALUES (2, 1, 5, 'Belajar Website Menggunakan PHP dan MYSQL', '2', 5, 1, 2, 'Jakarta', '2020-06-01', '2020-06-02', 'sss', 1, NULL, 3, NULL, '82172716', 1, 1, '001/WO-SC/01/2022', '2022-11-06 05:53:00', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `t_work_order` VALUES (3, 1, 6, 'Membuat Frontend ReactJS', '2', 2, 1, 5, 'Jakarta', '11/09/2022 - 11/10/2022', '11/11/2022 - 11/12/2022', 'jnkkbasd', 19, 20, NULL, NULL, '1337162583', 1, 1, '002/WO-SC/01/2022', '2022-11-08 03:27:21', '2022-11-11 01:57:26', '2022-11-11 02:06:51', 'was_approved_by_teguh_on_2022_11_11_01_57_26.png', 'was_approved_by_fahmi_on_2022_11_11_02_06_51.png', NULL);
+INSERT INTO `t_work_order` VALUES (4, 1, 3, 'Pelatihan Excel VBA', '2', 2, 1, 5, 'Bekasi', '11/09/2022 - 11/10/2022', '11/11/2022 - 11/12/2022', 'OKE AMAN', NULL, NULL, NULL, NULL, '1996332791', 1, 1, '003/WO-SC/11/2022', '2022-11-09 05:34:41', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `t_work_order` VALUES (5, 9, 4, 'Membuat Aplikasi dengan Arsitektur Microservices (Laravel and React JS)', '4', 2, 1, 4, 'Jakarta', '11/14/2022 - 11/18/2022', '11/14/2022 - 11/18/2022', 'OKE', 19, 20, NULL, NULL, '386362929', 1, 1, '004/WO-FT/11/2022', '2022-11-11 06:52:52', '2022-11-11 06:55:22', '2022-11-11 06:55:34', 'was_approved_by_fahmi_on_2022_11_11_06_55_33.png', 'was_approved_by_fahmi_on_2022_11_11_06_55_33.png', 'was_approved_by_nia_on_2022_11_11_06_53_42.png');
 
 -- ----------------------------
 -- Table structure for t_work_order_detail

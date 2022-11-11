@@ -12,6 +12,10 @@ f
                             <h2>
                                Work Order
                             </h2>
+
+                            <br>
+                            <img src="assets/media/qrcode/<?php echo $img->qr_edu_approve; ?>" alt="">
+                           
                             <br>
                             <?php 
                                 if($this->session->userdata('level') == 1 ||$this->session->userdata('level') == 2){
@@ -541,6 +545,9 @@ f
  
    <script type="text/javascript">
 
+    function PrintWO(id){
+        window.open("<?php echo base_url('work_order/cetak_wo/')?>"+id);
+    }
     function StatusWO(id){
         $("#StatusModal").modal({backdrop: 'static', keyboard: false,show:true}); 
 

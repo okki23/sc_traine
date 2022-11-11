@@ -7,7 +7,7 @@ class Approval_work_order extends Parent_Controller {
     var $nama_tabel = 't_work_order';
     var $daftar_field = array('id','id_sales','id_trainer','judul_training','durasi','id_kategori_training','id_instansi','jml_peserta','lokasi_pelaksanaan','tgl_pelaksanaan','tgl_sertifikat','keterangan','is_approve_education','is_approve_sales_lead','id_materi','total_jampel','token','id_room','status','no_wo','created_at','approve_edu_date','approve_sales_date');
     var $primary_key = 'id'; 
-	var $source = 'FT';//FT - SC - FI
+	var $source = 'SC';//FT - SC - FI
 
  	public function __construct(){
  		parent::__construct();
@@ -33,13 +33,23 @@ class Approval_work_order extends Parent_Controller {
 		$id = $this->input->post('id');
 		$userid = $this->input->post('userid');
 		$session_level = $this->input->post('session_level');
- 
+		$genereateqr = '';
+		$store = '';
 		if($session_level == 5){
-			$setdata = array('is_approve_sales_lead'=>$userid,'approve_sales_date'=>date('Y-m-d H:i:s'));
+
+			$genereateqr = 'was_approved_by_'.get_user_account($userid).'_on_'.date('Y_m_d_H_i_s');
+			$exqr = $this->generate_qrcode_approval($genereateqr);
+		 
+			$setdata = array('is_approve_sales_lead'=>$userid,'approve_sales_date'=>date('Y-m-d H:i:s'),'qr_sales_approve'=>$exqr);
 			$store = $this->db->set($setdata)->where('id',$id)->update($this->nama_tabel);
-		}else{
-			$setdata = array('is_approve_education'=>$userid,'approve_edu_date'=>date('Y-m-d H:i:s'));
+			
+		}else{ 
+			$genereateqr = 'was_approved_by_'.get_user_account($userid).'_on_'.date('Y_m_d_H_i_s');
+			$exqr = $this->generate_qrcode_approval($genereateqr);
+		  
+			$setdata = array('is_approve_education'=>$userid,'approve_edu_date'=>date('Y-m-d H:i:s'),'qr_edu_approve'=>$exqr);
 			$store = $this->db->set($setdata)->where('id',$id)->update($this->nama_tabel);
+			
 		}
 
 		 
@@ -49,25 +59,24 @@ class Approval_work_order extends Parent_Controller {
 			$result = array("response"=>array('message'=>'failed'));
 		}
 
+
 		echo json_encode($result,true);
 	}
 
-	public function header_wo(){
-		$params = date('Ymd');
-		$now = date('Y-m-d H:i:s');
-		$whoami = get_user_account($this->session->userdata('userid'));
-		$last_id = $this->transaksi_id($params); 
-		$token = rand();
+	
+	function generate_qrcode_approval($message)
+	{
+		$this->load->library('ciqrcode');
+		$params['data'] = $message;
+		$params['level'] = 'H';
+		$params['size'] = 10;
+		$params['savename'] = FCPATH.'qrcode/'.$message.".png";
+		$this->ciqrcode->generate($params);
+		return $message.".png";
 
-		$parse = array('no_wo'=>$last_id,'userid'=>$this->session->userdata('userid'),'useraccount'=>$whoami,'date'=>$now,'token'=>$token);
-		echo json_encode($parse);  
 	}
- 
 
-	public function get_last_id(){
-		$params = date('Ymd');
-		echo $this->transaksi_id($params);  
-	}
+  
 
 	public function fetch_audience(){
 		$id = $this->uri->segment(3);
@@ -91,38 +100,7 @@ class Approval_work_order extends Parent_Controller {
 		echo json_encode(array("data"=>$data));
 		
 	 
-	}
- 
-	public function transaksi_id($param = '') {
-        $data = $this->m_approval_work_order->get_no();
-        $lastid = $data->row();
-        $idnya = $lastid->id; 
-
-        if($idnya == '') { // bila data kosong
-            $ID = $param . "0000001";
-            //00000001
-        }else {
-            $MaksID = $idnya;
-            $MaksID++;
-            if ($MaksID < 10)
-                $ID = $param . "000000" . $MaksID;
-            else if ($MaksID < 100)
-                $ID = $param . "00000" . $MaksID;
-            else if ($MaksID < 1000)
-                $ID = $param . "0000" . $MaksID;
-            else if ($MaksID < 10000)
-                $ID = $param . "000" . $MaksID;
-            else if ($MaksID < 100000)
-                $ID = $param . "00" . $MaksID;
-            else if ($MaksID < 1000000)
-                $ID = $param . "0" . $MaksID;
-            else
-                $ID = $MaksID;
-        }
-
-        return $ID;
-    }  	
-
+	} 
   	public function fetch_approval_work_order(){  
        $getdata = $this->m_approval_work_order->fetch_approval_work_order();
        echo json_encode($getdata);   

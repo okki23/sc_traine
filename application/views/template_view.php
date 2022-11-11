@@ -289,12 +289,12 @@
                                     <span>Approval Work Order</span>
                                 </a>
                             </li>  
-                            <li>
+                            <!-- <li>
                                 <a href="<?php echo base_url('history_work_order'); ?>">
                                 <i class="material-icons">dns</i>
                                     <span>History Work Order</span>
                                 </a>
-                            </li>  
+                            </li>   -->
                             
                         </ul>
                     </li> 

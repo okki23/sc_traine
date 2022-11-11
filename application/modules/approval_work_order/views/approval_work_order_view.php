@@ -33,6 +33,7 @@ f
 											<th style="width:5%;">Trainer</th>  
                                             <th style="width:10%;">Pelaksanaan</th>     
                                             <th style="width:5%;">Sales</th>   
+                                            <!-- <th style="width:5%;">QR Approve</th>    -->
                                             <th style="width:8%;">Tanggal Pengajuan</th>   
 											<th style="width:16%;">Opsi</th> 
 										</tr>
@@ -462,6 +463,8 @@ f
 								<td> <p id="roomdtl"> </p> </td> 
 							</tr> 
 
+                           
+
 							<tr>
 								<td colspan="6" align="center">  
 								<img src="" class="img responsive" style="width:50%; height: 50%;" id="foto_dtl">
@@ -694,10 +697,10 @@ f
                  $("#tglenddtl").html(result.tanggal_end);   
                  $("#trainerdtl").html(result.namatrainer);  
                  $("#roomdtl").html(result.room);  
+                
                  $("#kategoridtl").html(result.kategori_training);    
                  $("#instansidtl").html(result.nama_perusahaan);  
-                 
-				 
+                  
 			 }
 		 });
 	 }
